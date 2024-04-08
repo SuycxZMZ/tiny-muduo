@@ -13,7 +13,7 @@
         logger.setLogLevel(INFO);                         \
         char buf[1024];                                   \
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
-        logger.log(std::string(buf));                     \
+        logger.log(std::string(buf) + "\n");              \
     } while (0)
 
 #define LOG_ERROR(logMsgFormat, ...)                      \
@@ -23,7 +23,7 @@
         logger.setLogLevel(ERROR);                        \
         char buf[1024];                                   \
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
-        logger.log(std::string(buf));                     \
+        logger.log(std::string(buf) + "\n");              \
     } while (0)
 #ifdef MUDUODEBUG
 #define LOG_DEBUG(logMsgFormat, ...)                      \
@@ -33,7 +33,7 @@
         logger.setLogLevel(DEBUG);                        \
         char buf[1024];                                   \
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
-        logger.log(std::string(buf));                     \
+        logger.log(std::string(buf) + "\n");              \
     } while (0)
 #else
 #define LOG_DEBUG(logMsgFormat, ...)
@@ -46,7 +46,7 @@
         logger.setLogLevel(FATAL);                        \
         char buf[1024];                                   \
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
-        logger.log(std::string(buf));                     \
+        logger.log(std::string(buf) + "\n");              \
     } while (0)
 
 // 日志级别
