@@ -47,6 +47,7 @@
         char buf[1024];                                   \
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
         logger.log(std::string(buf) + "\n");              \
+        exit(EXIT_FAILURE);                               \
     } while (0)
 
 // 日志级别
