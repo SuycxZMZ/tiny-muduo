@@ -46,11 +46,23 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
     {
         LOG_DEBUG("%d events happened", numEvents);
         fillActivateChannels(numEvents, activeChannels);
+        if (numEvents == m_events.size())
+        {
+            m_events.resize(m_events.size() * 2);
+        }
+    }
+    else if (numEvents == 0)
+    {
+        LOG_DEBUG("epoll nothing happened");
     }
     else
     {
-
+        if (saveErrno != EINTR)
+        {
+            LOG_ERROR("EPollerPoller::poll()");
+        }
     }
+    return now;
 }
 
 void EpollPoller::updateChannel(Channel * channel)
@@ -92,7 +104,7 @@ void EpollPoller::removeChannel(Channel * channel)
     int fd = channel->fd();
     m_channels.erase(fd);
     int index = channel->index();
-    LOG_INFO("func = %d, fd = %d, index = %d", __FUNCTION__, fd, index);
+    LOG_INFO("func = %s, fd = %d, index = %d", __FUNCTION__, fd, index);
     if (index == kAdded)
     {
         update(EPOLL_CTL_DEL, channel);
@@ -104,7 +116,13 @@ void EpollPoller::removeChannel(Channel * channel)
 void EpollPoller::fillActivateChannels(int numEvents,
                             ChannelList * actChannels) const
 {
-
+    for (int i = 0; i < numEvents; ++i)
+    {
+        Channel * channel = static_cast<Channel*>(m_events[i].data.ptr);
+        channel->set_revents(m_events[i].events);
+        // eventloop拿到poller返回的所有发生事件的channel
+        actChannels->emplace_back(channel);
+    }
 }
 // 更新 channel
 void EpollPoller::update(int operation, Channel * channel)
