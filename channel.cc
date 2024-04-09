@@ -31,14 +31,12 @@ Eventloop ==> channel_list + poller
 */ 
 void Channel::update()
 {
-    // add code
-    // m_loop->updateChannel(this);
+    m_loop->updateChannel(this);
 }
 
 void Channel::remove()
 {
-    // add code
-    // m_loop->removeChannel(this);
+    m_loop->removeChannel(this);
 }
 
 void Channel::handelEvent(Timestamp receiveTime)

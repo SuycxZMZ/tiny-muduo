@@ -62,7 +62,7 @@ EventLoop::~EventLoop()
 void EventLoop::handleRead()
 {
     uint64_t one = 1;
-    ssize_t n = read(m_wakeupFd, &one, sizeof one);
+    ssize_t n = ::read(m_wakeupFd, &one, sizeof one);
     if (n != sizeof one)
     {
         LOG_ERROR("EventLoop::handleRead() reads %ld bytes instead of 8", n);
@@ -133,7 +133,7 @@ void EventLoop::queueInLoop(Functor cb)
         std::lock_guard<std::mutex> lock(m_mutex);
         m_pendingFunctors.emplace_back(std::move(cb));
     }
-    // m_callingPendingFunctors ？ 
+    // m_callingPendingFunctors = true 情况下，正在执行回调。wakeup一次，保证再次poll的时候不阻塞
     if (!isInLoopThread() || m_callingPendingFunctors)
     {
         wakeUp();
