@@ -1,20 +1,12 @@
 #include "tcpserver.h"
 #include "logger.h"
 
-EventLoop * CheckLoopNotNull(EventLoop * loop)
-{
-    if (loop == nullptr)
-    {
-        LOG_FATAL("main loop is nullptr");
-    }
-    return loop;
-}
 
 TcpServer::TcpServer(EventLoop * loop, 
             const InetAddress & listenAddr,
             const std::string & nameArgs,
             Option option) :
-    m_loop(loop),
+    m_loop(CheckLoopNotNull(loop)),
     m_ipPort(listenAddr.toIpPort()),
     m_name(nameArgs),
     m_acceptor(new Acceptor(loop, listenAddr, option = kReusePort)),

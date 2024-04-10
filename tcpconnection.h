@@ -9,6 +9,7 @@
 #include "inetaddress.h"
 #include "callbacks.h"
 #include "buffer.h"
+#include "timestamp.h"
 
 class Channel;
 class EventLoop;
@@ -69,6 +70,9 @@ private:
     void handleError();
 
     void setState(StateE s) { m_state = s; }
+
+    void sendInLoop(const void * msg, size_t len);
+    void shutdownInLoop();
 
     // sub_loop TcpConnection都是在sub_loop中管理
     EventLoop * m_loop;

@@ -9,6 +9,7 @@
 #include "noncopyable.h"
 #include "timestamp.h"
 #include "currentthread.h"
+#include "logger.h"
 
 class Channel;
 class Poller;
@@ -58,5 +59,14 @@ private:
     std::mutex m_mutex;                     // 保护m_pendingFunctors的线程安全
     std::vector<Functor> m_pendingFunctors; // 存储loop需要执行的所有回调操作
 };
+
+EventLoop * CheckLoopNotNull(EventLoop * loop)
+{
+    if (loop == nullptr)
+    {
+        LOG_FATAL("main loop is nullptr");
+    }
+    return loop;
+}
 
 #endif
