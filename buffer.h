@@ -81,7 +81,19 @@ public:
         }
     }
 
+    char * beginWrite() { return begin() + m_writeIndex; }
+    const char * beginWrite() const { return begin() + m_writeIndex; }
 
+    // data 写入 Writable 缓冲区
+    void append(const char * data, size_t len)
+    {
+        ensureWritableBytes(len);
+        std::copy(data, data + len, beginWrite());
+        m_writeIndex += len;
+    }
+
+    // 从 fd 读数据到缓冲区
+    ssize_t readFd(int fd, int * saveErrno);
 private:
     char * begin() { return &*m_buffer.begin();}
     const char * begin() const { return &*m_buffer.begin(); }
@@ -106,6 +118,7 @@ private:
             m_writeIndex = kCheapPrepend + readable;
         }
     }
+
 private:
     std::vector<char> m_buffer;
     size_t m_readIndex;
