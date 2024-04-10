@@ -4,7 +4,7 @@
 #include "muduothread.h"
 #include "currentthread.h"
 
-std::atomic_int muduoThread::m_numCreate = 0;
+std::atomic_int muduoThread::m_numCreate(0);
 
 muduoThread::muduoThread(ThreadFunc func, const std::string & n) :
     m_started(false),
