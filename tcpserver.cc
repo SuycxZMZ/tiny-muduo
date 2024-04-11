@@ -15,7 +15,8 @@ TcpServer::TcpServer(EventLoop * loop,
     m_threadPool(new EventLoopThreadPool(loop, m_name)),
     m_connCallback(ConnectionCallBack()),
     m_msgCallBack(MsgCallback()),
-    m_nextConnId(1)
+    m_nextConnId(1),
+    m_started(0)
 {
     m_acceptor->setNewConnCallBack(std::bind(&TcpServer::newConn, 
                                              this, 

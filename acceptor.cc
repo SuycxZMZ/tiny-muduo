@@ -28,6 +28,7 @@ Acceptor::Acceptor(EventLoop * loop, const InetAddress & listenaddr, bool reusep
 
     // acceptfd --> acceptchannel 上注册的回调，把接收到的 clientfd 打包发送给sub_loop
     m_acceptChannel.setReadCallBack(std::bind(&Acceptor::handleRead, this));
+    LOG_INFO("acceptorfd = %d", m_acceptSocket.fd());
 }
 
 Acceptor::~Acceptor()
@@ -39,17 +40,23 @@ Acceptor::~Acceptor()
 void Acceptor::listen()
 {
     m_listenning = true;
+    LOG_INFO("%s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
     m_acceptSocket.linsten();
+    LOG_INFO("%s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
     m_acceptChannel.enableReading();
 }
 
 // 新用户连接触发 m_acceptChannel 有事件发生
 void Acceptor::handleRead()
 {
+    LOG_INFO(" ===> %s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
     InetAddress peerAddr;
     int connfd = m_acceptSocket.accept(&peerAddr);
     if (connfd >= 0)
     {
+        LOG_INFO("%s:%s:%d: accept a new connection, fd = %d, ip = %s, port = %d",
+                __FILE__, __FUNCTION__, __LINE__,
+                connfd, peerAddr.toIpPort().c_str(), peerAddr.toPort());
         if (m_newConnCallBack)
         {
             // 轮询 sub_loop ...

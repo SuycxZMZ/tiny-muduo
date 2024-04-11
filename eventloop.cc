@@ -79,7 +79,7 @@ void EventLoop::loop()
     while (!m_quit)
     {
         m_channelList.clear();
-        // main_loop 监听的是wakeupfd, sub_loop监听的是clientfd
+        // main_loop 监听的是 acceptorfd, sub_loop监听的是clientfd
         m_pollReturnTime = m_poller->poll(kPollTimeMs, &m_channelList);
         for (Channel * channel : m_channelList)
         {

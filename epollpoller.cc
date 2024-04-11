@@ -18,6 +18,7 @@ EpollPoller::EpollPoller(EventLoop * loop) :
     m_epollfd(::epoll_create1(EPOLL_CLOEXEC)),
     m_events(kInitEventListSize)
 {
+    LOG_INFO("func = %s, fd = %d", __FUNCTION__, m_epollfd);
     if (m_epollfd < 0)
     {
         LOG_FATAL("create epollfd error : %d", errno);
@@ -42,10 +43,12 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
                                  timeoutMs);
     int saveErrno = errno;
     Timestamp now(Timestamp::now());
+    LOG_INFO("func = %s, numEvents = %d", __FUNCTION__, numEvents);
     if (numEvents > 0)
     {
-        LOG_DEBUG("%d events happened", numEvents);
+        LOG_INFO("%d events happened", numEvents);
         fillActivateChannels(numEvents, activeChannels);
+        LOG_INFO("fillActivateChannels fill all");
         if (numEvents == m_events.size())
         {
             m_events.resize(m_events.size() * 2);
@@ -116,6 +119,8 @@ void EpollPoller::removeChannel(Channel * channel)
 void EpollPoller::fillActivateChannels(int numEvents,
                             ChannelList * actChannels) const
 {
+    // LOG_INFO("func = %s, numEvents = %d, m_events.size() = %d", 
+    //         __FUNCTION__, numEvents, m_events.size());
     for (int i = 0; i < numEvents; ++i)
     {
         Channel * channel = static_cast<Channel*>(m_events[i].data.ptr);
@@ -124,6 +129,7 @@ void EpollPoller::fillActivateChannels(int numEvents,
         actChannels->emplace_back(channel);
     }
 }
+
 // 更新 channel
 void EpollPoller::update(int operation, Channel * channel)
 {
@@ -132,7 +138,7 @@ void EpollPoller::update(int operation, Channel * channel)
     bzero(&event, sizeof event);
     event.events = channel->events();
     event.data.ptr = channel;
-    event.data.fd = fd;
+    // event.data.fd = fd;
     if (::epoll_ctl(m_epollfd, operation, fd, &event) < 0)
     {
         if (operation == EPOLL_CTL_DEL)
