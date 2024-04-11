@@ -94,6 +94,9 @@ public:
 
     // 从 fd 读数据到缓冲区
     ssize_t readFd(int fd, int * saveErrno);
+
+    // 通过 fd 写缓冲区 发送数据, 把缓冲区数据写入fd
+    ssize_t writeFd(int fd, int * saveErrno);
 private:
     char * begin() { return &*m_buffer.begin();}
     const char * begin() const { return &*m_buffer.begin(); }

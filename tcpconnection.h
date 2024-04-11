@@ -38,9 +38,11 @@ public:
     bool disconnected() const { return m_state == kDisconnected; }
 
     // 发送数据
-    void send(const void * msg, int len);
+    void send(const std::string & msg);
+    // void sendInLoop(const std::string & msg);
     // 关闭连接
     void shutdown();
+    // void shutdownInLoop();
 
     void setConnectionCallBack(const ConnectionCallBack & cb)
     { m_connectionCallBack = cb; }
@@ -96,7 +98,9 @@ private:
 
     size_t m_highWaterMark;
 
+    // 接收缓冲区
     Buffer m_inputBuffer;
+    // 发送缓冲区
     Buffer m_outputBuffer;
 };
 

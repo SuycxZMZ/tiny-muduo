@@ -60,7 +60,7 @@ private:
     std::vector<Functor> m_pendingFunctors; // 存储loop需要执行的所有回调操作
 };
 
-EventLoop * CheckLoopNotNull(EventLoop * loop)
+static EventLoop * CheckLoopNotNull(EventLoop * loop)
 {
     if (loop == nullptr)
     {
