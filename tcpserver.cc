@@ -1,6 +1,8 @@
+#include <strings.h>
+#include <functional>
+
 #include "tcpserver.h"
 #include "logger.h"
-
 
 TcpServer::TcpServer(EventLoop * loop, 
             const InetAddress & listenAddr,
@@ -26,6 +28,8 @@ TcpServer::~TcpServer()
     LOG_INFO("TcpServer::~TcpServer [%s] destructing", m_name.c_str());
     for (auto & it : m_connections)
     {
+        // 栈上的 conn 接管了 m_connections 中的 TcpConnectionPtr，再把
+        // TcpConnectionPtr 置空，出来循环，析构 conn
         TcpConnectionPtr conn(it.second);
         it.second.reset();
         // conn->getLoop()->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
@@ -63,15 +67,40 @@ void TcpServer::newConn(int sockfd, const InetAddress & peerAddr)
              m_name.c_str(), 
              connName.c_str(), 
              peerAddr.toIpPort().c_str());
+    sockaddr_in local;
+    ::bzero(&local, sizeof local);
+    socklen_t addrlen = sizeof local;
+    if (::getsockname(sockfd, (sockaddr *)&local, &addrlen) < 0)
+    {
+        LOG_ERROR("TcpServer::newConnection getsockname");
+    }
+    InetAddress localAddr(local);
 
+    // localAddr, peerAddr
+    TcpConnectionPtr conn(new TcpConnection(ioLoop,
+                                            connName,
+                                            sockfd,
+                                            localAddr,
+                                            peerAddr));
+    m_connections[connName] = conn;
+    conn->setConnectionCallBack(m_connCallback);
+    conn->setMsgCallBack(m_msgCallBack);
+    // conn->setCloseCallBack(std::bind(&TcpServer::removeConn, this, _1));
+    conn->setWriteCompleteCallBack(m_writeCompleteCallBack);
+    conn->setCloseCallBack(std::bind(&TcpServer::removeConn, this, std::placeholders::_1));
+    ioLoop->runInLoop(std::bind(&TcpConnection::connectEstablished, conn));
 }
 
 void TcpServer::removeConn(const TcpConnectionPtr & conn)
 {
-
+    m_loop->runInLoop(std::bind(&TcpServer::removeConnInLoop, this, conn));
 }
 
 void TcpServer::removeConnInLoop(const TcpConnectionPtr & conn)
 {
-
+    LOG_INFO("TcpServer::removeConnInLoop [%s] - connection %s", m_name.c_str(), conn->name().c_str());
+    m_connections.erase(conn->name());
+    // 获取conn所在的loop
+    EventLoop * ioLoop = conn->getLoop();
+    ioLoop->queueInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
 }
