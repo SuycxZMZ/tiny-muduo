@@ -6,19 +6,19 @@
 class EchoServer
 {
 public:
-    EchoServer(EventLoop * loop, 
-               const InetAddress & listenAddr, 
-               const std::string & name) :
-        m_loop(loop),
-        m_server(m_loop, listenAddr, name)
+    EchoServer(EventLoop *loop,
+               const InetAddress &listenAddr,
+               const std::string &name) : 
+               m_loop(loop),
+               m_server(m_loop, listenAddr, name)
     {
         LOG_DEBUG("EchoServer::EchoServer()");
         // 注册回调
         m_server.setConnCallBack(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
-        m_server.setMsgCallBack(std::bind(&EchoServer::onMessage, this, 
-                                std::placeholders::_1, 
-                                std::placeholders::_2, 
-                                std::placeholders::_3));
+        m_server.setMsgCallBack(std::bind(&EchoServer::onMessage, this,
+                                          std::placeholders::_1,
+                                          std::placeholders::_2,
+                                          std::placeholders::_3));
         // 设置线程数
         m_server.setThreadNum(3);
     }
@@ -28,7 +28,7 @@ public:
     }
 
 private:
-    void onConnection(const TcpConnectionPtr & conn)
+    void onConnection(const TcpConnectionPtr &conn)
     {
         if (conn->connected())
         {
@@ -40,8 +40,8 @@ private:
         }
     }
 
-    void onMessage(const TcpConnectionPtr & conn,
-                   Buffer * buf,
+    void onMessage(const TcpConnectionPtr &conn,
+                   Buffer *buf,
                    Timestamp time)
     {
         std::string msg(buf->retriveAllAsString());
@@ -49,11 +49,9 @@ private:
         conn->shutdown(); // close write --> epoll closeCallBack
     }
 
-
-    EventLoop * m_loop;
+    EventLoop *m_loop;
     TcpServer m_server;
 };
-
 
 int main()
 {
@@ -65,7 +63,7 @@ int main()
 
     // listen， 创建loopthread，将listenfd打包为channel向main_loop注册
     server.start();
-    
+
     loop.loop();
 
     return 0;

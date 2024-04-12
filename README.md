@@ -14,14 +14,16 @@
         cmake version 3.16.3
     
     编译&&安装：
-        需要root权限，在muduo目录下执行：
+        git clone https://github.com/SuycxZMZ/tiny-muduo.git
+        cd tiny-muduo
+        需要root权限，在工程目录下执行：
         sh ./autobuild.sh
     测试回显服务器：
         cd example
         make clean
         make
         ./echoserver
-        ## 正常安装的话已经开始打印信息了，并阻塞等待客户端连接
+        ## 正常安装的话已经开始打印信息了，并等待客户端连接
     测试回显客户端：
         telnet 127.0.0.1 8000
         ## 输入任意字符，回车后，会打印出客户端输入的字符
@@ -29,3 +31,11 @@
 [1. 主要组件说明](basicClass.md)
 
 [2. 主要流程说明](basicModel.md)
+
+参考 && 致谢 ：
+
+https://github.com/chenshuo/muduo
+
+https://blog.csdn.net/T_Solotov/article/details/124044175
+
+https://zhuanlan.zhihu.com/p/636581210
