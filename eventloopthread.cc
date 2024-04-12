@@ -2,7 +2,7 @@
 
 
 EventLoopThread::EventLoopThread(const ThreadInitCallBack & cb,
-                const std::string & name) :
+                                 const std::string & name) :
     m_loop(nullptr),
     m_exiting(false),
     m_thread(std::bind(&EventLoopThread::threadFunc, this), name),

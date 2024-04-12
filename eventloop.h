@@ -13,7 +13,7 @@
 
 class Channel;
 class Poller;
-// 时间循环类 -- > 包括 Channel 和 Poller 两个类
+// 事件循环类 -- > 包括 Channel 和 Poller 两个类
 class EventLoop : noncopyable
 {
 public:
