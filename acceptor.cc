@@ -49,7 +49,7 @@ void Acceptor::listen()
 // 新用户连接触发 m_acceptChannel 有事件发生
 void Acceptor::handleRead()
 {
-    LOG_INFO(" ===> %s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
+    // LOG_INFO(" ===> %s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
     InetAddress peerAddr;
     int connfd = m_acceptSocket.accept(&peerAddr);
     if (connfd >= 0)

@@ -43,12 +43,12 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
                                  timeoutMs);
     int saveErrno = errno;
     Timestamp now(Timestamp::now());
-    LOG_INFO("func = %s, numEvents = %d", __FUNCTION__, numEvents);
+    // LOG_INFO("func = %s, numEvents = %d", __FUNCTION__, numEvents);
     if (numEvents > 0)
     {
-        LOG_INFO("%d events happened", numEvents);
+        // LOG_INFO("%d events happened", numEvents);
         fillActivateChannels(numEvents, activeChannels);
-        LOG_INFO("fillActivateChannels fill all");
+        // LOG_INFO("fillActivateChannels fill all");
         if (numEvents == m_events.size())
         {
             m_events.resize(m_events.size() * 2);
@@ -71,7 +71,7 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
 void EpollPoller::updateChannel(Channel * channel)
 {
     const int index = channel->index();
-    LOG_INFO("func=%s fd = %d events = %d index = %d",__FUNCTION__, channel->fd(), channel->events(), index);
+    // LOG_INFO("func=%s fd = %d events = %d index = %d",__FUNCTION__, channel->fd(), channel->events(), index);
     if (index == kNew || index == kDeleted)
     {
         int fd = channel->fd();
