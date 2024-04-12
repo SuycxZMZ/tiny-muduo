@@ -87,8 +87,8 @@ void EventLoop::loop()
             m_currentActiveChannel->handelEvent(m_pollReturnTime);
         }
         m_currentActiveChannel = nullptr;
-        // 执行当前Eventloop需要处理的回调操作
         /**
+         * 执行当前Eventloop需要处理的回调操作
          * main_loop --> 只做 accept用，返回 fd --> 打包为channel --> 给sub_loop
          * main_loop 事先注册一个回调(sub_loop使用) sub_loop被唤醒之后执行
         */
