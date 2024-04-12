@@ -129,13 +129,13 @@ void TcpServer::newConn(int sockfd, const InetAddress & peerAddr)
 }
 ```
 
-在TcpServer::newConnection()函数中，当接受了一个新用户连接，就要把这个Tcp连接封装成一个TcpConnection对象，也就是上面代码中的new TcpConnection(…)。然后用一个共享型智能指针来管理这个对象。所以为什么这里要把TcpConnection用智能指针来管理???
+在TcpServer::newConnection()函数中，当接受了一个新用户连接，就要把这个Tcp连接封装成一个TcpConnection对象，也就是上面代码中的new TcpConnection(…)。然后用一个强智能指针来管理这个对象。所以为什么这里要把TcpConnection用智能指针来管理???
 
 使用智能指针管理TcpConnetion的最重要原因在于防止指针悬空，而指针悬空可能会来自以下这2个方面：
 - 1. TcpConnection会和用户直接交互，用户可能会手欠删除。在我们编写Echo服务器的时候，我们用户可以自定义连接事件发生后的处理函数（如下所示），并将这个函数注册到TcpServer中。假如这里的onConnection函数传入的是TcpConnection而不是TcpConnectionPtr，用户在onConnection函数中把TcpConnection对象给Delete了怎么办？删除了之后，程序内部还要好几处地方都在使用TcpConnection对象。结果这个对象的内存突然消失了，服务器访问非法内存崩溃
 ```C++
-/**** 用户自定义的连接事件发生后的处理函数 *****/
-void onConnection(const TcpConnectionPtr &conn){...}
+    /**** 用户自定义的连接事件发生后的处理函数 *****/
+    void onConnection(const TcpConnectionPtr &conn){...}
 ```
 - 2. TcpConnection对象的多线程安全问题: 假如服务器要关闭了这个时候MainEventLoop线程中的TcpServer::~TcpServer()函数开始把所有TcpConnection对象都删掉。那么其他线程还在使用这个TcpConnection对象，如果你把它的内存空间都释放了，其他线程访问了非法内存，会直接崩溃。在Channel中还有两个成员如下：
 ```C++
