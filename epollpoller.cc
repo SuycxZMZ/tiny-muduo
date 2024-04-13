@@ -36,7 +36,7 @@ EpollPoller::~EpollPoller()
 */
 Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
 {
-    LOG_DEBUG("func = %s, total fd cnt = %d", __FUNCTION__, m_channels.size());
+    LOG_DEBUG("func = %s, total fd cnt = %ld", __FUNCTION__, m_channels.size());
     int numEvents = ::epoll_wait(m_epollfd, 
                                  &*m_events.begin(),
                                  static_cast<int>(m_events.size()),
