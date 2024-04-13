@@ -10,7 +10,7 @@
 
 // class Poller;
 // 防止一个线程创建多个 event_loop
-__thread EventLoop * t_loopInThisThread = 0;
+__thread EventLoop * t_loopInThisThread = nullptr;
 
 // 默认的 poller 超时时间 10s
 const int kPollTimeMs = 10000;
@@ -114,6 +114,7 @@ void EventLoop::quit()
 }
 
 // 在当前loop线程中执行cb
+// 该函数保证了cb这个函数对象一定是在其EventLoop线程中被调用。
 void EventLoop::runInLoop(Functor cb)
 {
     if (isInLoopThread())

@@ -29,11 +29,9 @@ TcpServer::~TcpServer()
     LOG_INFO("TcpServer::~TcpServer [%s] destructing", m_name.c_str());
     for (auto & it : m_connections)
     {
-        // 栈上的 conn 接管了 m_connections 中的 TcpConnectionPtr，再把
-        // TcpConnectionPtr 置空，出来循环，析构 conn
         TcpConnectionPtr conn(it.second);
         it.second.reset();
-        // conn->getLoop()->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
+        conn->getLoop()->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
     }
 }
 

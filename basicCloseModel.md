@@ -38,7 +38,7 @@ TcpServer::~TcpServer()
         // TcpConnectionPtr 置空，出来循环，析构 conn
         TcpConnectionPtr conn(it.second);
         it.second.reset();
-        // conn->getLoop()->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
+        conn->getLoop()->runInLoop(std::bind(&TcpConnection::connectDestroyed, conn));
     }
 }
 ```
@@ -53,7 +53,7 @@ TcpServer::~TcpServer()
 
 #### 如果TcpConnection中有正在发送的数据，怎么保证在触发TcpConnection关闭机制后，能先让TcpConnection先把数据发送完再释放TcpConnection对象的资源？
 
-shared_from_this()是什么意思，首先TcpConnection类继承了一个类
+TcpConnection类继承了一个类
 ```C++
 class TcpConnection :public std::enable_shared_from_this<TcpConnection>
 ```
