@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 
 project(tinymuduo)
 
-add_definitions(-DMUDUODEBUG=1)
+add_definitions(-DMUDUODEBUG=0)
+add_definitions(-DMUDUOINFO=1)
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 

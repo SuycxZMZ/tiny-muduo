@@ -28,6 +28,8 @@
         telnet 127.0.0.1 8000
         ## 输入任意字符，回车后，会打印出客户端输入的字符
 
+### 2. 主要组件说明
+
 [1. 主要组件说明](basicClass.md)
 
 [2. 连接流程说明](basicConnectModel.md)
@@ -37,6 +39,17 @@
 [4. 关闭流程说明](basicCloseModel.md)
 
 [5. one loop per thread 模型](basicOneLoopPerThreadModel.md)
+
+### 3. 压力测试 ApacheBench
+
+    ---- 控制台日志 ----
+        ab -n 100000 -c 100 -k http://localhost:8000/
+        环境：ubuntu20.04, 2核2G, 起2个线程和4个线程基本一样
+        打开LOG_INFO, qps:18000左右
+        关闭所有LOG, qps:70000左右
+        控制台日志每次都切内核标准输出，请求量大的时候效率极低
+
+    ---- 日志模块，单独起线程和缓冲区buffer ----
 
 参考 && 致谢 ：
 

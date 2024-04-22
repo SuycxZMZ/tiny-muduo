@@ -20,7 +20,7 @@ public:
                                           std::placeholders::_2,
                                           std::placeholders::_3));
         // 设置线程数
-        m_server.setThreadNum(3);
+        m_server.setThreadNum(4);
     }
     void start()
     {
@@ -32,11 +32,11 @@ private:
     {
         if (conn->connected())
         {
-            LOG_INFO("client:%s connected", conn->peerAddr().toIpPort().c_str());
+            // LOG_INFO("client:%s connected", conn->peerAddr().toIpPort().c_str());
         }
         else
         {
-            LOG_INFO("client:%s disconnected", conn->peerAddr().toIpPort().c_str());
+            // LOG_INFO("client:%s disconnected", conn->peerAddr().toIpPort().c_str());
         }
     }
 

@@ -8,6 +8,7 @@
 // #define MUDUODEBUG 0
 
 // log宏 LOG_INFO(formatstr, arg1, arg2, ...)
+#if MUDUOINFO
 #define LOG_INFO(logMsgFormat, ...)                       \
     do                                                    \
     {                                                     \
@@ -17,6 +18,9 @@
         snprintf(buf, 1024, logMsgFormat, ##__VA_ARGS__); \
         logger.log(std::string(buf) + "\n");              \
     } while (0)
+#else
+#define LOG_INFO(logMsgFormat, ...)
+#endif
 
 #define LOG_ERROR(logMsgFormat, ...)                      \
     do                                                    \
