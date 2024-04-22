@@ -42,8 +42,12 @@ TcpConnection::~TcpConnection()
 // 发送数据
 void TcpConnection::send(const std::string & msg)
 {
+    LOG_DEBUG("msg : %s", msg.c_str());
     if (m_state == kConnected)
     {
+        LOG_DEBUG("-------------------------------------------");
+        LOG_DEBUG("TcpConnection::send : m_state == kConnected");
+        LOG_DEBUG("-------------------------------------------");
         if (m_loop->isInLoopThread())
         {
             sendInLoop(msg.c_str(), msg.size());
@@ -65,16 +69,21 @@ void TcpConnection::sendInLoop(const void * msg, size_t len)
     ssize_t nwrote = 0;
     size_t remaining = len;
     bool faultError = false;
-    if (m_state = kDisconnected)
+    if (kDisconnected == m_state)
     {
         LOG_ERROR("disconnected, give up writing");
         return;
     }
 
+    LOG_DEBUG("TcpConnection::sendInLoop msg : %s", (char *)msg);
+
     // if no thing in output queue, try writing directly
     if (!m_channel->isWriting() && m_outputBuffer.readableBytes() == 0)
     {
         nwrote = ::write(m_channel->fd(), msg, len);
+
+        LOG_DEBUG("TcpConnection::sendInLoop nwrote=%ld", nwrote);
+
         if (nwrote >= 0)
         {
             remaining = len - nwrote;

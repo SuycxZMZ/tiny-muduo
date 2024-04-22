@@ -46,7 +46,7 @@ private:
     {
         std::string msg(buf->retriveAllAsString());
         conn->send(msg);
-        conn->shutdown(); // close write --> epoll closeCallBack
+        // conn->shutdown(); // close write --> epoll closeCallBack
     }
 
     EventLoop *m_loop;
