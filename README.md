@@ -50,6 +50,10 @@
         控制台日志每次都切内核标准输出，请求量大的时候效率极低
 
     ---- 日志模块，单独起线程和缓冲区buffer ----
+        使用spdlog
+        $ git clone https://github.com/gabime/spdlog.git
+        $ cd spdlog && mkdir build && cd build
+        $ cmake .. && make -j
 
 参考 && 致谢 ：
 
