@@ -7,7 +7,8 @@
 #include "tcpconnection.h"
 #include "eventloop.h"
 #include "muduosocket.h"
-#include "logger.h"
+// #include "logger.h"
+#include "utils.h"
 #include "channel.h"
 
 TcpConnection::TcpConnection(EventLoop * loop,
@@ -30,24 +31,21 @@ TcpConnection::TcpConnection(EventLoop * loop,
     m_channel->setCloseCallBack(std::bind(&TcpConnection::handleClose, this));
     m_channel->setErrorCallBack(std::bind(&TcpConnection::handleError, this));
 
-    LOG_DEBUG("TcpConnection::ctor[%s] at %p fd=%d", m_name.c_str(), this, sockfd);
+    LOG_DEBUG("TcpConnection::ctor{} fd={}", m_name.c_str(), sockfd);
 
     m_socket->setKeepAlive(true);
 }
 TcpConnection::~TcpConnection()
 {
-    LOG_DEBUG("TcpConnection::dtor[%s] at %p fd=%d", m_name.c_str(), this, m_channel->fd());
+    LOG_DEBUG("TcpConnection::dtor{} fd={}", m_name.c_str(), m_socket->fd());
 }
 
 // 发送数据
 void TcpConnection::send(const std::string & msg)
 {
-    LOG_DEBUG("msg : %s", msg.c_str());
+    LOG_DEBUG("msg : {}", msg.c_str());
     if (m_state == kConnected)
     {
-        LOG_DEBUG("-------------------------------------------");
-        LOG_DEBUG("TcpConnection::send : m_state == kConnected");
-        LOG_DEBUG("-------------------------------------------");
         if (m_loop->isInLoopThread())
         {
             sendInLoop(msg.c_str(), msg.size());
@@ -75,14 +73,14 @@ void TcpConnection::sendInLoop(const void * msg, size_t len)
         return;
     }
 
-    LOG_DEBUG("TcpConnection::sendInLoop msg : %s", (char *)msg);
+    LOG_DEBUG("TcpConnection::sendInLoop msg : {}", (char *)msg);
 
     // if no thing in output queue, try writing directly
     if (!m_channel->isWriting() && m_outputBuffer.readableBytes() == 0)
     {
         nwrote = ::write(m_channel->fd(), msg, len);
 
-        LOG_DEBUG("TcpConnection::sendInLoop nwrote=%ld", nwrote);
+        LOG_DEBUG("TcpConnection::sendInLoop nwrote={}", nwrote);
 
         if (nwrote >= 0)
         {
@@ -227,13 +225,13 @@ void TcpConnection::handleWrite()
     }
     else
     {
-        LOG_ERROR("Connection fd=%d is down, no more writing", m_channel->fd());
+        LOG_ERROR("Connection fd={} is down, no more writing", m_channel->fd());
     }
 }
 
 void TcpConnection::handleClose()
 {
-    LOG_INFO("fd=%d state=%d", m_channel->fd(), static_cast<int>(m_state));
+    LOG_INFO("fd={} state={}", m_channel->fd(), static_cast<int>(m_state));
     setState(kDisconnected);
     m_channel->disableAll();
 
@@ -256,7 +254,7 @@ void TcpConnection::handleError()
     {
         err = optval;
     }
-    LOG_ERROR("TcpConnection::handleError [%s] - SO_ERROR = %d", m_name.c_str(), err);
+    LOG_ERROR("TcpConnection::handleError {} - SO_ERROR = {}", m_name.c_str(), err);
 }
 
 

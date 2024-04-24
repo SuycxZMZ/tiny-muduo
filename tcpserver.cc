@@ -2,7 +2,8 @@
 #include <functional>
 
 #include "tcpserver.h"
-#include "logger.h"
+// #include "logger.h"
+#include "utils.h"
 
 TcpServer::TcpServer(EventLoop * loop, 
             const InetAddress & listenAddr,
@@ -26,7 +27,7 @@ TcpServer::TcpServer(EventLoop * loop,
 
 TcpServer::~TcpServer()
 {
-    LOG_INFO("TcpServer::~TcpServer [%s] destructing", m_name.c_str());
+    LOG_INFO("TcpServer::~TcpServer {} destructing", m_name.c_str());
     for (auto & it : m_connections)
     {
         TcpConnectionPtr conn(it.second);
@@ -62,7 +63,7 @@ void TcpServer::newConn(int sockfd, const InetAddress & peerAddr)
     ++m_nextConnId;
     std::string connName = m_name + std::string(buf);
 
-    LOG_INFO("TcpServer::newConnection [%s] - new connection [%s] from %s", 
+    LOG_INFO("TcpServer::newConnection {} - new connection {} from {}", 
              m_name.c_str(), 
              connName.c_str(), 
              peerAddr.toIpPort().c_str());
@@ -97,7 +98,7 @@ void TcpServer::removeConn(const TcpConnectionPtr & conn)
 
 void TcpServer::removeConnInLoop(const TcpConnectionPtr & conn)
 {
-    LOG_INFO("TcpServer::removeConnInLoop [%s] - connection %s", m_name.c_str(), conn->name().c_str());
+    LOG_INFO("TcpServer::removeConnInLoop {} - connection {}", m_name.c_str(), conn->name().c_str());
     m_connections.erase(conn->name());
     // 获取conn所在的loop
     EventLoop * ioLoop = conn->getLoop();

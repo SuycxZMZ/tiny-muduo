@@ -1,31 +1,37 @@
-// #ifndef UTILS_H
-// #define UTILS_H 
+// utils.h
 #pragma once
 
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_DEBUG
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
 
-#include "noncopyable.h"
 #include "spdlog/spdlog.h"
-#include "spdlog/sinks/basic_file_sink.h" // support for basic file logging
-#include "spdlog/sinks/rotating_file_sink.h" // support for rotating file logging
+#include "spdlog/async.h"
+#include "spdlog/sinks/rotating_file_sink.h"
 
-std::shared_ptr<spdlog::logger> file_logger = spdlog::rotating_logger_mt("log_info", "/usr/local/tiny-muduo-log/log_info.log", 1024 * 1024, 10);
-//  file_logger_debug = spdlog::rotating_logger_mt("log_debug", "log_debug.log", 10 * 1024, 5);
-// 设置日志格式. 参数含义: [日志标识符] [日期] [日志级别] [线程号] [文件名 函数名:行号] [数据]
-// file_logger->set_pattern("[%n] [%Y-%m-%d %H:%M:%S.%e] [%l] [%t] [%s %!:%#]  %v");
+// Declare file_logger as an extern variable
+extern std::shared_ptr<spdlog::logger> file_logger;
 
-struct logInit : noncopyable
+class spdLoggerInit
 {
-    logInit(){
-        int a = 1;
-        //[日志标识符] [日期] [日志级别] [线程号] [数据]
-        file_logger->set_pattern("[%n] [%Y-%m-%d %H:%M:%S.%e] [%l] [%t] %v");
-        file_logger->set_level(spdlog::level::debug);
-    }
+public:
+    spdLoggerInit();
+    ~spdLoggerInit();
 };
-
-logInit log_init;
-
+void init(); // Declaration of the initialization function
 
 
-// #endif
+#ifdef CLOSEALLLOG
+    #define LOG_INFO(logMsgFormat, ...)
+    #define LOG_DEBUG(logMsgFormat, ...)
+    #define LOG_ERROR(logMsgFormat, ...)
+    #define LOG_FATAL(logMsgFormat, ...)
+#else
+    #define LOG_INFO(logMsgFormat, ...) \
+        file_logger->info(logMsgFormat, ##__VA_ARGS__); file_logger->flush()
+    #define LOG_DEBUG(logMsgFormat, ...) \
+        file_logger->debug(logMsgFormat, ##__VA_ARGS__)
+    #define LOG_ERROR(logMsgFormat, ...) \
+            file_logger->error(logMsgFormat, ##__VA_ARGS__)
+    #define LOG_FATAL(logMsgFormat, ...) \
+            file_logger->critical(logMsgFormat, ##__VA_ARGS__)
+#endif  
+

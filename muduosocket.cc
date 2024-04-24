@@ -7,7 +7,8 @@
 #include <strings.h>
 
 #include "muduosocket.h"
-#include "logger.h"
+// #include "logger.h"
+#include "utils.h"
 
 muduoSocket::~muduoSocket()
 {
@@ -18,14 +19,14 @@ void muduoSocket::bindAddress(const InetAddress & localaddr)
 {
     if (0 != ::bind(m_sockfd, (sockaddr*)localaddr.getSockAddr(), sizeof(sockaddr_in)))
     {
-        LOG_FATAL("bind sockfd %d error", m_sockfd);
+        LOG_FATAL("bind sockfd {} error", m_sockfd);
     }
 }
 void muduoSocket::linsten()
 {
     if (0 != ::listen(m_sockfd, 1024))
     {
-        LOG_FATAL("listen sockfd %d error", m_sockfd);
+        LOG_FATAL("listen sockfd {} error", m_sockfd);
     }
 }
 
@@ -46,7 +47,7 @@ void muduoSocket::shutdownWrite()
 {
     if (::shutdown(m_sockfd, SHUT_WR) < 0)
     {
-        LOG_ERROR("shutdown sockfd %d error", m_sockfd);
+        LOG_ERROR("shutdown sockfd {} error", m_sockfd);
     }
 }
 
