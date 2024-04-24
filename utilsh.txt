@@ -19,7 +19,7 @@ public:
 void init(); // Declaration of the initialization function
 
 
-#ifdef CLOSEALLLOG
+#if CLOSEALLLOG
     #define LOG_INFO(logMsgFormat, ...)
     #define LOG_DEBUG(logMsgFormat, ...)
     #define LOG_ERROR(logMsgFormat, ...)

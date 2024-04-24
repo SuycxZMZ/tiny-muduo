@@ -7,7 +7,8 @@
 // #include "logger.h"
 #include "poller.h"
 #include "channel.h"
-#include "utils.h"
+// #include "utils.h"
+#include "log.h"
 
 // class Poller;
 // 防止一个线程创建多个 event_loop
@@ -22,7 +23,7 @@ int createEventfd()
     int evtfd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (evtfd < 0)
     {
-        LOG_FATAL("func = {}, create eventfd error", __FUNCTION__);
+        LOG_FATAL("func = %s, create eventfd error", __FUNCTION__);
     }
     return evtfd;
 }
@@ -37,10 +38,10 @@ EventLoop::EventLoop() :
     m_wakeupChannel(new Channel(this, m_wakeupFd)),
     m_currentActiveChannel(nullptr)
 {
-    LOG_DEBUG("EventLoop create, in thread {}", m_threadId);
+    LOG_DEBUG("EventLoop create, in thread %d", m_threadId);
     if (t_loopInThisThread)
     {
-        LOG_FATAL("Another EventLoop exists in this thread {}", m_threadId);
+        LOG_FATAL("Another EventLoop exists in this thread %d", m_threadId);
     }
     else
     {
@@ -53,7 +54,7 @@ EventLoop::EventLoop() :
 
 EventLoop::~EventLoop()
 {
-    LOG_DEBUG("EventLoop of thread {} destructs in thread {}", m_threadId, CurrentThread::tid());
+    LOG_DEBUG("EventLoop of thread %d destructs in thread %d", m_threadId, CurrentThread::tid());
     m_wakeupChannel->disableAll();
     m_wakeupChannel->remove();
     ::close(m_wakeupFd);
@@ -66,7 +67,7 @@ void EventLoop::handleRead()
     ssize_t n = ::read(m_wakeupFd, &one, sizeof one);
     if (n != sizeof one)
     {
-        LOG_ERROR("EventLoop::handleRead() reads {} bytes instead of 8", n);
+        LOG_ERROR("EventLoop::handleRead() reads %ld bytes instead of 8", n);
     }
 }
 
@@ -148,7 +149,7 @@ void EventLoop::wakeUp()
     ssize_t n = ::write(m_wakeupFd, &one, sizeof one);
     if (n != sizeof one)
     {
-        LOG_ERROR("EventLoop::wakeup() writes {} bytes instead of 8", n);
+        LOG_ERROR("EventLoop::wakeup() writes %ld bytes instead of 8", n);
     }
 }
 

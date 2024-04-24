@@ -49,6 +49,8 @@ ssize_t Buffer::writeFd(int fd, int * saveErrno)
     if (n < 0)
     {
         *saveErrno = errno;
+        return n;
     }
+    m_readIndex += n;
     return n;
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "logger.h"
+#include "log.h"
 #include "timestamp.h"
 
 // 获取日志单例

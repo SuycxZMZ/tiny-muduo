@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <atomic>
+#include <assert.h>
+#include <strings.h>
 
 #include "noncopyable.h"
 
@@ -40,6 +43,8 @@ public:
     // 返回缓冲区中可读数据的起始地址
     const char * peek() const { return begin() + m_readIndex; }
 
+    void hasWritten(size_t len) { m_writeIndex += len; }
+
     void retrive(size_t len)
     {
         if (len < readableBytes())
@@ -52,8 +57,15 @@ public:
         }
     }
 
+    void retriveUntil(const char* end)
+    {
+        assert(peek() <= end);
+        retrive(end - peek());
+    }
+
     void retriveAll()
     {
+        bzero(&m_buffer[0], m_buffer.size());
         m_readIndex = kCheapPrepend;
         m_writeIndex = kCheapPrepend;
     }
@@ -92,6 +104,9 @@ public:
         m_writeIndex += len;
     }
 
+    void append(const std::string& str) { append(str.data(), str.length()); }
+    void append(const void* data, size_t len) { assert(data); append(static_cast<const char*>(data), len); };
+
     // 从 fd 读数据到缓冲区
     ssize_t readFd(int fd, int * saveErrno);
 
@@ -124,8 +139,8 @@ private:
 
 private:
     std::vector<char> m_buffer;
-    size_t m_readIndex;
-    size_t m_writeIndex;
+    std::atomic<std::size_t> m_readIndex;
+    std::atomic<std::size_t> m_writeIndex;
 };
 
 #endif

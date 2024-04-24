@@ -4,7 +4,8 @@
 
 #include "acceptor.h"
 // #include "logger.h"
-#include "utils.h"
+// #include "utils.h"
+#include "log.h"
 #include "inetaddress.h"
 
 static int createNonBlockingOrDie()
@@ -12,7 +13,7 @@ static int createNonBlockingOrDie()
     int sockfd = ::socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
     if (sockfd < 0)
     {
-        LOG_FATAL("{}:create a sockfd:{} error", __FUNCTION__, sockfd);
+        LOG_FATAL("%s:create a sockfd:%d error", __FUNCTION__, sockfd);
     }
     return sockfd;
 }
@@ -29,7 +30,7 @@ Acceptor::Acceptor(EventLoop * loop, const InetAddress & listenaddr, bool reusep
 
     // acceptfd --> acceptchannel 上注册的回调，把接收到的 clientfd 打包发送给sub_loop
     m_acceptChannel.setReadCallBack(std::bind(&Acceptor::handleRead, this));
-    LOG_INFO("acceptorfd = {}", m_acceptSocket.fd());
+    LOG_INFO("acceptorfd = %d", m_acceptSocket.fd());
 }
 
 Acceptor::~Acceptor()
@@ -64,6 +65,6 @@ void Acceptor::handleRead()
     }
     else
     {
-        LOG_ERROR("{}:accept error:{}", __FUNCTION__, errno);
+        LOG_ERROR("%s:accept error:%d", __FUNCTION__, errno);
     }
 }
