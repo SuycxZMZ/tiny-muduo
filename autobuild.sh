@@ -19,7 +19,6 @@ rm -rf `pwd`/build/* # clean build directory
 cd `pwd`/build &&
     cmake .. &&
     make
-
 cd ..
 
 # 把头文件拷贝到 /usr/include/tinymuduo  so库拷贝到 /usr/lib

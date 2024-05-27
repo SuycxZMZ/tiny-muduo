@@ -40,7 +40,7 @@
 
 [5. one loop per thread 模型](basicOneLoopPerThreadModel.md)
 
-[6. 日志模块说明]
+[6. 日志模块说明](basiclog.md)
 
 ### 3. 压力测试 ApacheBench
 
