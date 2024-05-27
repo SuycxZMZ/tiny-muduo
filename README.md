@@ -40,6 +40,8 @@
 
 [5. one loop per thread 模型](basicOneLoopPerThreadModel.md)
 
+[6. 日志模块说明]
+
 ### 3. 压力测试 ApacheBench
 
     ---- 控制台日志 ----
@@ -60,3 +62,5 @@ https://blog.csdn.net/T_Solotov/article/details/124044175
 https://zhuanlan.zhihu.com/p/636581210
 
 https://github.com/Shangyizhou/A-Tiny-Network-Library
+
+https://www.cnblogs.com/tuilk/p/16793625.html
