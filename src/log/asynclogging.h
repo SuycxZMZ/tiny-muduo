@@ -7,7 +7,6 @@
 #include "logstream.h"
 #include "logfile.h"
 
-
 #include <vector>
 #include <memory>
 #include <mutex>
@@ -16,7 +15,7 @@
 class AsyncLogging
 {
 public:
-    AsyncLogging(const std::string& basename,
+    AsyncLogging(const std::string &basename,
                  off_t rollSize,
                  int flushInterval = 3);
     ~AsyncLogging()
@@ -28,7 +27,7 @@ public:
     }
 
     // 前端调用 append 写入日志
-    void append(const char* logling, int len);
+    void append(const char *logling, int len);
 
     void start()
     {
@@ -50,17 +49,17 @@ private:
 
     void threadFunc();
 
-    const int flushInterval_;
-    std::atomic<bool> running_;
-    const std::string basename_;
-    const off_t rollSize_;
-    muduoThread thread_;
-    std::mutex mutex_;
-    std::condition_variable cond_;
+    const int flushInterval_;      // 冲刷缓冲数据到文件的超时时间, 默认3秒
+    std::atomic<bool> running_;    // 后端线程loop是否运行标志
+    const std::string basename_;   // 日志文件基本名称
+    const off_t rollSize_;         // 日志文件滚动大小
+    muduoThread thread_;           // 后端写线程
+    std::mutex mutex_;             // 互斥锁
+    std::condition_variable cond_; // 条件变量
 
-    BufferPtr currentBuffer_;
-    BufferPtr nextBuffer_;
-    BufferVector buffers_;
+    BufferPtr currentBuffer_; // 当前缓冲
+    BufferPtr nextBuffer_;    // 空闲缓冲
+    BufferVector buffers_;    // 已满缓冲队列
 };
 
 #endif // ASYNC_LOGGING_H

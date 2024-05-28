@@ -14,7 +14,7 @@ LogFile::LogFile(const std::string& basename,
       lastRoll_(0),
       lastFlush_(0)
 {
-    rollFile();
+    rollFile(); // 每次刷新都尝试 roll 一下
 }
 
 LogFile::~LogFile() = default;
@@ -57,7 +57,6 @@ void LogFile::appendInLock(const char* data, int len)
 
 void LogFile::flush()
 {
-    // std::lock_guard<std::mutex> lock(*mutex_);
     file_->flush();
 }
 
@@ -69,7 +68,6 @@ bool LogFile::rollFile()
     std::string filename = getLogFileName(basename_, &now);
     // 计算现在是第几天 now/kRollPerSeconds求出现在是第几天，再乘以秒数相当于是当前天数0点对应的秒数
     time_t start = now / kRollPerSeconds_ * kRollPerSeconds_;
-
     if (now > lastRoll_)
     {
         lastRoll_ = now;
@@ -87,7 +85,6 @@ std::string LogFile::getLogFileName(const std::string& basename, time_t* now)
     std::string filename;
     filename.reserve(basename.size() + 64);
     filename = basename;
-
     char timebuf[32];
     struct tm tm;
     *now = time(NULL);
@@ -95,8 +92,6 @@ std::string LogFile::getLogFileName(const std::string& basename, time_t* now)
     // 写入时间
     strftime(timebuf, sizeof timebuf, ".%Y%m%d-%H%M%S", &tm);
     filename += timebuf;
-
     filename += ".log";
-
     return filename;
 }

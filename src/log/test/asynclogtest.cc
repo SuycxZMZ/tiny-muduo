@@ -7,6 +7,7 @@
 
 static const off_t kRollSize = 1*1024*1024;
 AsyncLogging* g_asyncLog = NULL;
+int cnt = 0;
 
 inline AsyncLogging* getAsyncLog()
 {
@@ -23,7 +24,7 @@ void test_Logging()
 
     const int n = 10;
     for (int i = 0; i < n; ++i) {
-        LOG_INFO << "Hello, " << i << " abc...xyz";
+        LOG_INFO << "Hello, " << i << " abc...xyz " << cnt++;
     }
 }
 

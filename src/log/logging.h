@@ -17,10 +17,7 @@ public:
     explicit SourceFile(const char* filename)
         : data_(filename)
     {
-        /**
-         * 找出data中出现/最后一次的位置，从而获取具体的文件名
-         * 2022/10/26/test.log
-         */
+        // 找出data中出现 "/" 最后一次的位置，从而获取具体的文件名
         const char* slash = strrchr(filename, '/');
         if (slash)
         {
@@ -56,7 +53,6 @@ public:
     // 流是会改变的
     LogStream& stream() { return impl_.stream_; }
 
-    // TODO:static关键字作用的函数必须在源文件实现?
     static LogLevel logLevel();
     static void setLogLevel(LogLevel level);
 
@@ -83,7 +79,7 @@ private:
         SourceFile basename_;
     };
 
-    // Logger's member variable 
+    // Logger's member variable
     Impl impl_;
 };
 
@@ -97,10 +93,6 @@ inline Logger::LogLevel logLevel()
 // 获取errno信息
 const char* getErrnoMsg(int savedErrno);
 
-/**
- * 当日志等级小于对应等级才会输出
- * 比如设置等级为FATAL，则logLevel等级大于DEBUG和INFO，DEBUG和INFO等级的日志就不会输出
- */
 #define LOG_DEBUG if (logLevel() <= Logger::DEBUG) \
   Logger(__FILE__, __LINE__, Logger::DEBUG, __func__).stream()
 #define LOG_INFO if (logLevel() <= Logger::INFO) \

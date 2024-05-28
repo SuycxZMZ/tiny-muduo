@@ -55,7 +55,6 @@ Logger::Impl::Impl(Logger::LogLevel level, int savedErrno, const char* file, int
     formatTime();
     // 写入日志等级
     stream_ << GeneralTemplate(getLevelName[level], 6);
-    // TODO:error
     if (savedErrno != 0)
     {
         stream_ << getErrnoMsg(savedErrno) << " (errno=" << savedErrno << ") ";
