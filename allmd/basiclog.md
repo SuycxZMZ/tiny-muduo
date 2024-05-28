@@ -321,4 +321,5 @@ void stop() NO_THREAD_SAFETY_ANALYSIS {
 后端线程函数 threadFunc，会创建 1 个 LogFile 对象，用于控制日志文件的创建和写日志数据，创建 2 个空闲缓冲区 buffer1、buffer2，和一个待写缓冲队列 buffersToWrite，分别用于替换当前缓冲 currentBuffer_、空闲缓冲 nextBuffer_、已满缓冲队列 buffers_，避免在写文件过程中，锁住缓冲区和队列，导致前端无法写数据到后端缓冲。
 
 threadFunc 内部的 loop 流程如下：
+
 ![alt text](photos/logger8.png)

@@ -29,7 +29,7 @@ if [ ! -d "/usr/include/tinymuduo" ]; then
     echo "/usr/include/tinymuduo 目录创建成功"
 fi
 
-cp -r `pwd`/*.h /usr/include/tinymuduo
+cp -r `pwd`/src/include/*.h /usr/include/tinymuduo
 cp `pwd`/lib/*.so /usr/lib
 
 ldconfig
