@@ -71,6 +71,11 @@ public:
         return retriveAsString(readableBytes());
     }
 
+    void retriveUntil(const char *end)
+    {
+        retrive(end - peek());
+    }
+
     // 保证 len 的数据可写
     void ensureWritableBytes(size_t len)
     {
@@ -91,12 +96,25 @@ public:
         std::copy(data, data + len, beginWrite());
         m_writeIndex += len;
     }
+    
+    // string::data() 转换成字符数组，但是没有 '\0'
+    void append(const std::string &str)
+    {
+        append(str.data(), str.size());
+    }
 
     // 从 fd 读数据到缓冲区
     ssize_t readFd(int fd, int * saveErrno);
 
     // 通过 fd 写缓冲区 发送数据, 把缓冲区数据写入fd
     ssize_t writeFd(int fd, int * saveErrno);
+
+    const char* findCRLF() const
+    {
+        // FIXME: replace with memmem()?
+        const char* crlf = std::search(peek(), beginWrite(), kCRLF, kCRLF+2);
+        return crlf == beginWrite() ? NULL : crlf;
+    }
 private:
     char * begin() { return &*m_buffer.begin();}
     const char * begin() const { return &*m_buffer.begin(); }
@@ -126,6 +144,7 @@ private:
     std::vector<char> m_buffer;
     size_t m_readIndex;
     size_t m_writeIndex;
+    static const char kCRLF[];
 };
 
 #endif

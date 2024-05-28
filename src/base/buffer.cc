@@ -4,6 +4,8 @@
 
 #include "buffer.h"
 
+const char Buffer::kCRLF[] = "\r\n";
+
 /**
  * poller工作在 LT 模式，只要fd上有数据可读就会一直上报
  * buffer是大小有限制的，但从fd上读数据时，并不知道tcp最终会发送多少数据
