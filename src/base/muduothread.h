@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <atomic>
 
-
 #include "noncopyable.h"
 
 class muduoThread : noncopyable
