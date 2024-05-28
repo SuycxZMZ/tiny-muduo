@@ -4,6 +4,9 @@
 #include "tcpserver.h"
 #include "noncopyable.h"
 #include "logging.h"
+#include "httpcontext.h"
+#include "httprequest.h"
+#include "httpresponse.h"
 #include <string>
 
 class HttpRequest;

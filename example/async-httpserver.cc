@@ -1,16 +1,16 @@
-#include "httpserver.h"
-#include "httprequest.h"
-#include "httpresponse.h"
-#include "httpcontext.h"
-#include "timestamp.h"
+#include <tinymuduo/httpserver.h>
 
 extern char favicon[555];
-// 不进行压力测试时设为 false
 bool benchmark = true;
+
+void helper() 
+{
+    std::cout << "please input like this : ./server ip port" << std::endl;
+}
 
 void onRequest(const HttpRequest& req, HttpResponse* resp)
 {
-    std::cout << "Headers " << req.methodString() << " " << req.path() << std::endl;
+    // std::cout << "Headers " << req.methodString() << " " << req.path() << std::endl;
     
     // 打印头部
     if (!benchmark)
@@ -57,11 +57,36 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 }
 
+int kRollSize = 500*1000*1000;
+
+// 异步日志
+std::unique_ptr<AsyncLogging> g_asyncLog;
+
+void asyncOutput(const char* msg, int len)
+{
+    g_asyncLog->append(msg, len);
+}
+
+void setLogging(const char* argv0)
+{
+    Logger::setOutput(asyncOutput);
+    char name[256];
+    strncpy(name, argv0, 256);
+    g_asyncLog.reset(new AsyncLogging(::basename(name), kRollSize));
+    g_asyncLog->start();
+}
+
 int main(int argc, char* argv[])
 {
+    if (argc != 3) 
+    {
+        helper();
+        exit(0);
+    }
+    setLogging(argv[0]);
     Logger::setLogLevel(Logger::LogLevel::WARN);
     EventLoop loop;
-    HttpServer server(&loop, InetAddress(8080), "http-server");
+    HttpServer server(&loop, InetAddress(atoi(argv[2]), argv[1]), "http-server");
     server.setHttpCallback(onRequest);
     server.start();
     loop.loop();

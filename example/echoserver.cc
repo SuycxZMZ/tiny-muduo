@@ -56,6 +56,8 @@ int main()
     EventLoop loop;
     InetAddress addr(8000);
 
+    Logger::setLogLevel(Logger::LogLevel::WARN);
+
     // 建立acceptor，创建 non-blocking listenfd，bind
     EchoServer server(&loop, addr, "EchoServer");
 

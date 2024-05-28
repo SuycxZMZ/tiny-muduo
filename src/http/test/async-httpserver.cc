@@ -3,9 +3,9 @@
 #include "httpresponse.h"
 #include "httpcontext.h"
 #include "timestamp.h"
+#include "asynclogging.h"
 
 extern char favicon[555];
-// 不进行压力测试时设为 false
 bool benchmark = true;
 
 void onRequest(const HttpRequest& req, HttpResponse* resp)
@@ -57,8 +57,28 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 }
 
+int kRollSize = 500*1000*1000;
+
+// 异步日志
+std::unique_ptr<AsyncLogging> g_asyncLog;
+
+void asyncOutput(const char* msg, int len)
+{
+    g_asyncLog->append(msg, len);
+}
+
+void setLogging(const char* argv0)
+{
+    Logger::setOutput(asyncOutput);
+    char name[256];
+    strncpy(name, argv0, 256);
+    g_asyncLog.reset(new AsyncLogging(::basename(name), kRollSize));
+    g_asyncLog->start();
+}
+
 int main(int argc, char* argv[])
 {
+    setLogging(argv[0]);
     Logger::setLogLevel(Logger::LogLevel::WARN);
     EventLoop loop;
     HttpServer server(&loop, InetAddress(8080), "http-server");
