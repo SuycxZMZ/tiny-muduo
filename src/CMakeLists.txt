@@ -5,6 +5,7 @@ file(GLOB SRC_LIST
     base/*.cc
     log/*.cc
     net/*.cc
+    http/*.cc
 )
 
 add_library(tinymuduo SHARED ${SRC_LIST})

@@ -4,7 +4,7 @@
 #include <functional>
 
 #include "eventloop.h"
-#include "logger.h"
+#include "logging.h"
 #include "poller.h"
 #include "channel.h"
 
@@ -21,7 +21,7 @@ int createEventfd()
     int evtfd = ::eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (evtfd < 0)
     {
-        LOG_FATAL("func = %s, create eventfd error", __FUNCTION__);
+        LOG_FATAL << "create eventfd error" ;
     }
     return evtfd;
 }
@@ -36,10 +36,10 @@ EventLoop::EventLoop() :
     m_wakeupChannel(new Channel(this, m_wakeupFd)),
     m_currentActiveChannel(nullptr)
 {
-    LOG_DEBUG("EventLoop create at %p, in thread %d", this, m_threadId);
+    LOG_DEBUG << "EventLoop created " << this << " in thread " << m_threadId;
     if (t_loopInThisThread)
     {
-        LOG_FATAL("Another EventLoop %p exists in this thread %d", t_loopInThisThread, m_threadId);
+        LOG_FATAL << "Another EventLoop " << t_loopInThisThread;
     }
     else
     {
@@ -52,7 +52,7 @@ EventLoop::EventLoop() :
 
 EventLoop::~EventLoop()
 {
-    LOG_DEBUG("EventLoop %p of thread %d destructs in thread %d", this, m_threadId, CurrentThread::tid());
+    LOG_DEBUG << "EventLoop " << this << " of thread " << m_threadId << " destructs in thread " << CurrentThread::tid();
     m_wakeupChannel->disableAll();
     m_wakeupChannel->remove();
     ::close(m_wakeupFd);
@@ -65,7 +65,7 @@ void EventLoop::handleRead()
     ssize_t n = ::read(m_wakeupFd, &one, sizeof one);
     if (n != sizeof one)
     {
-        LOG_ERROR("EventLoop::handleRead() reads %ld bytes instead of 8", n);
+        LOG_ERROR << "EventLoop::handleRead() reads " << n << " bytes instead of 8";
     }
 }
 
@@ -74,7 +74,7 @@ void EventLoop::loop()
 {
     m_looping = true;
     m_quit = false;
-    LOG_INFO("EventLoop %p start looping", this);
+    LOG_INFO << "EventLoop " << this << " start looping";
 
     while (!m_quit)
     {
@@ -95,7 +95,7 @@ void EventLoop::loop()
         doPendingFunctors();
     }
 
-    LOG_INFO("EventLoop %p stop looping", this);
+    LOG_INFO << "EventLoop " << this << " stop looping";
     m_looping = false;
 }
 
@@ -147,7 +147,7 @@ void EventLoop::wakeUp()
     ssize_t n = ::write(m_wakeupFd, &one, sizeof one);
     if (n != sizeof one)
     {
-        LOG_ERROR("EventLoop::wakeup() writes %ld bytes instead of 8", n);
+        LOG_ERROR << "EventLoop::wakeUp() writes " << n << " bytes instead of 8";
     }
 }
 

@@ -2,7 +2,7 @@
 
 #include "channel.h"
 #include "eventloop.h"
-#include "logger.h"
+#include "logging.h"
 
 const int Channel::kNoneEvent = 0;
 const int Channel::kReadEvent = EPOLLIN | EPOLLPRI;
@@ -57,7 +57,7 @@ void Channel::handelEvent(Timestamp receiveTime)
 
 void Channel::handleEventWithGuard(Timestamp recvTime)
 {
-    LOG_INFO("channel handle revent : %d", m_revents);
+    LOG_INFO << "channel handle event " << m_revents;
     if ((m_revents & EPOLLHUP) && !(m_revents & EPOLLIN))
     {
         if (m_closeCallBack) m_closeCallBack();

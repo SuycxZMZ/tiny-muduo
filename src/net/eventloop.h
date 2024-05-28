@@ -9,7 +9,7 @@
 #include "noncopyable.h"
 #include "timestamp.h"
 #include "currentthread.h"
-#include "logger.h"
+#include "logging.h"
 
 class Channel;
 class Poller;
@@ -64,7 +64,7 @@ static EventLoop * CheckLoopNotNull(EventLoop * loop)
 {
     if (loop == nullptr)
     {
-        LOG_FATAL("main loop is nullptr");
+        LOG_FATAL << "EventLoop::getEventLoop() invoked in wrong thread";
     }
     return loop;
 }

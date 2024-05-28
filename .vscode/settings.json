@@ -62,5 +62,6 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp"
-    }
+    },
+    "Codegeex.GenerationPreference": "line by line"
 }
