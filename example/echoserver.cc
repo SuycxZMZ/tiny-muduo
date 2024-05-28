@@ -32,11 +32,9 @@ private:
     {
         if (conn->connected())
         {
-            // LOG_INFO("client:%s connected", conn->peerAddr().toIpPort().c_str());
         }
         else
         {
-            // LOG_INFO("client:%s disconnected", conn->peerAddr().toIpPort().c_str());
         }
     }
 

@@ -61,7 +61,8 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "signal.h": "c"
     },
     "Codegeex.GenerationPreference": "line by line"
 }
