@@ -1,5 +1,10 @@
 #include <tinymuduo/tcpserver.h>
 
+void helper() 
+{
+    std::cout << "please input like this : ./server ip port" << std::endl;
+}
+
 class EchoServer
 {
 public:
@@ -61,7 +66,7 @@ void asyncOutput(const char* msg, int len)
 void setLogging(const char* argv0)
 {
     Logger::setOutput(asyncOutput);
-    Logger::setLogLevel(Logger::LogLevel::WARN);
+    // Logger::setLogLevel(Logger::LogLevel::WARN);
     char name[256];
     strncpy(name, argv0, 256);
     g_asyncLog.reset(new AsyncLogging(::basename(name), kRollSize));
@@ -71,10 +76,16 @@ void setLogging(const char* argv0)
 
 int main(int argc, char* argv[]) 
 {
+    if (argc != 3) 
+    {
+        helper();
+        exit(0);
+    }
+
     setLogging(argv[0]);
     LOG_INFO << "pid = " << getpid();
     EventLoop loop;
-    InetAddress addr(8000);
+    InetAddress addr(atoi(argv[2]), argv[1]);
     EchoServer server(&loop, addr, "EchoServer");
     server.start();
     loop.loop();
