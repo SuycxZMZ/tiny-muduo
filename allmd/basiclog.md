@@ -84,7 +84,7 @@ const char digits[] = "9876543210123456789";
 在 Logger 类中定义了枚举变量 LogLevel 来作为日志等级：
 
 | 日志等级 | 说明 |
-| ----- | ----- |
+|:---:|:---:|
 |TRACE	|跟踪：指明程序的运行轨迹，比 DEBUG 级别的粒度更细|
 |DEBUG	|调试：指明细致的事件信息，对调试应用最有用|
 |INFO	|信息：指明描述信息，从粗粒度上描述了应用的运行过程|
@@ -252,46 +252,43 @@ AsyncLogging 主要负责提供大缓冲区，即 LargeBuffer，默认大小为 
 ```C++
 class AsyncLogging : noncopyable {
 private:
-  // Large Buffer Type
-  typedef muduo::detail::FixedBuffer<muduo::detail::kLargeBuffer> Buffer;
-  typedef std::vector<std::unique_ptr<Buffer>> BufferVector; // 已满缓冲队列类型
-  typedef BufferVector::value_type BufferPtr;
- 
-  const int flushInterval_;                    // 冲刷缓冲数据到文件的超时时间, 默认3秒
-  std::atomic<bool> running_;                  // 后端线程loop是否运行标志
-  const string basename_;                      // 日志文件基本名称
-  const off_t rollSize_;                       // 日志文件滚动大小
-  muduo::Thread thread_;                       // 后端线程
-  muduo::CountDownLatch latch_;                // 门阀, 同步调用线程与新建的后端线程
-  muduo::MutexLock mutex_;                     // 互斥锁, 功能相当于std::mutex
-  muduo::Condition cond_ GUARDED_BY(mutex_);   // 条件变量, 与mutex_配合使用, 等待特定条件满足
-  BufferPtr currentBuffer_ GUARDED_BY(mutex_); // 当前缓冲
-  BufferPtr nextBuffer_ GUARDED_BY(mutex_);    // 空闲缓冲
-  BufferVector buffers_ GUARDED_BY(mutex_);    // 已满缓冲队列
+    using Buffer = FixedBuffer<kLargeBuffer>;
+    using BufferVector = std::vector<std::unique_ptr<Buffer>>;
+    using BufferPtr = BufferVector::value_type;
+
+    void threadFunc();
+
+    const int flushInterval_;      // 冲刷缓冲数据到文件的超时时间, 默认3秒
+    std::atomic<bool> running_;    // 后端线程loop是否运行标志
+    const std::string basename_;   // 日志文件基本名称
+    const off_t rollSize_;         // 日志文件滚动大小
+    muduoThread thread_;           // 后端写线程
+    std::mutex mutex_;             // 互斥锁
+    std::condition_variable cond_; // 条件变量
+
+    BufferPtr currentBuffer_; // 当前缓冲 图中的 Buffer A
+    BufferPtr nextBuffer_;    // 空闲缓冲 图中的 Buffer B
+    BufferVector buffers_;    // 已满缓冲队列
 }
  
 ```
-前端线程通过调用 LOG_XXX << "..." 输出日志消息时，可以通过调用 AsyncLogging::append() 方法将日志消息传递给后端：
+前端线程通过调用 LOG_XXX << "..." 输出日志消息时， 调用路径如下：
+
+  1. **Logger(...).stream() <<**  --> **LogStream(...).stream() <<**
+  --> **FixedBuffer(kSmallBuffer).append()** --> **至此，日志写到了前端小缓冲区**
+
+  2. **LOG_XXX** 走完立马析构，走 **Logger::~Logger()** --> **impl_.finish()** (执行一些文件行号之类的工作) --> **g_output(buffer)**(在AsyncLogging时，这一步将小缓冲内容放入后端的 **currentBuffer_**，即 **BufferA**)。在默认情况下，不开启异步日志，**g_output(buffer)** 直接将缓冲区内容刷新到控制台。
+  
+  3. **AsyncLogging::start()** 执行之后每3秒，将 **currentBuffer_** 添加到 **buffers_** 尾部，交换一个新的 **currentBuffer_** 作为前段写入缓冲区，随后写线程将 **buffers_** 写入文件
+
+可以通过调用 AsyncLogging::append() 方法将日志消息传递给后端：
 ```C++
 void AsyncLogging::append(const char *logline, int len) {
-  muduo::MutexLockGuard lock(mutex_);
-  if (currentBuffer_->avail() > len) {
-      currentBuffer_->append(logline, static_cast<size_t>(len));
-  } else {
-    buffers_.push_back(std::move(currentBuffer_));
- 
-    if (nextBuffer_) {
-      currentBuffer_ = std::move(nextBuffer_);
-    } else {
-      currentBuffer_.reset(new Buffer);
-    }
- 
-    currentBuffer_->append(logline, static_cast<size_t>(len));
-    cond_.notify();
-  }
+    muduo::MutexLockGuard lock(mutex_);
+    ...
 }
 ```
-由于 append() 可能被多个前端线程调用，因此必须考虑线程安全，采用互斥锁加锁。其基本思路如下图所示：
+由于 append() 可能被多个前端线程调用，因此必须考虑线程安全，采用互斥锁加锁。基本思路如下图所示：
 ![alt text](photos/logger7.png)
 
 最后需要唤醒后端线程，是因为后端线程很可能阻塞等待日志消息，当缓冲区满时，能及时唤醒后端线程将已满的数据写入到磁盘上，否则短时间内如果产生大量的日志消息，会造成数据堆积，甚至丢失，而后端线程一直休眠，直到 3 秒超时后唤醒。
@@ -322,4 +319,6 @@ void stop() NO_THREAD_SAFETY_ANALYSIS {
 
 threadFunc 内部的 loop 流程如下：
 
-![alt text](photos/logger8.png)
+<div style="text-align: center;">
+  <img src="photos/logger8.png" alt="alt text" />
+</div>
