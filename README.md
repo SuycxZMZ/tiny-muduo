@@ -35,17 +35,17 @@
 
 ### 2. 主要组件说明
 
-[1. 主要组件说明](allmd/basicClass.md)
+[1. 主要组件说明](docs/basicClass.md)
 
-[2. 连接流程说明](allmd/basicConnectModel.md)
+[2. 连接流程说明](docs/basicConnectModel.md)
 
-[3. 读写流程说明](allmd/basicReadWriteModel.md)
+[3. 读写流程说明](docs/basicReadWriteModel.md)
 
-[4. 关闭流程说明](allmd/basicCloseModel.md)
+[4. 关闭流程说明](docs/basicCloseModel.md)
 
-[5. one loop per thread 模型](allmd/basicOneLoopPerThreadModel.md)
+[5. one loop per thread 模型](docs/basicOneLoopPerThreadModel.md)
 
-[6. 日志模块说明](allmd/basiclog.md)
+[6. 日志模块说明](docs/basiclog.md)
 
 ### 3. 压力测试 ApacheBench
 
