@@ -47,7 +47,6 @@ void Acceptor::listen()
 // 新用户连接触发 m_acceptChannel 有事件发生
 void Acceptor::handleRead()
 {
-    // LOG_INFO(" ===> %s:%s:%d", __FILE__, __FUNCTION__, __LINE__);
     InetAddress peerAddr;
     int connfd = m_acceptSocket.accept(&peerAddr);
     if (connfd >= 0)
@@ -55,7 +54,7 @@ void Acceptor::handleRead()
         LOG_INFO << "accept a new connection from " << peerAddr.toIpPort();
         if (m_newConnCallBack)
         {
-            // 轮询 sub_loop ...
+            // // 绑的是 TcpServer::newConn(int sockfd, const InetAddress & peerAddr)
             m_newConnCallBack(connfd, peerAddr);
         }
         else

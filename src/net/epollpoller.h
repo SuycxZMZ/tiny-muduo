@@ -8,7 +8,7 @@
 #include "channel.h"
 
 /**
-* epoll : epoll_create --> epoll_ctl --> epoll_wait
+ * @brief epoll : epoll_create --> epoll_ctl --> epoll_wait
 */
 class EpollPoller : public Poller
 {
