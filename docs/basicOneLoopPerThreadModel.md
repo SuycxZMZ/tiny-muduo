@@ -1,8 +1,9 @@
-### One Loop Per Thread Model
+# One Loop Per Thread Model
 
-One Loop Per Thread的含义就是，一个EventLoop和一个线程唯一绑定，和这个EventLoop有关的，被这个EventLoop管辖的一切操作都必须在这个EventLoop绑定线程中执行，比如在MainEventLoop中，负责新连接建立的操作都要在MainEventLoop线程中运行。已建立的连接分发到某个SubEventLoop上，这个已建立连接的任何操作，比如接收数据发送数据，连接断开等事件处理都必须在这个SubEventLoop线程上运行，还不准跑到别的SubEventLoop线程上运行。
+One Loop Per Thread的含义就是，一个EventLoop和一个线程唯一绑定，和这个EventLoop有关的，被这个EventLoop管辖的一切操作都必须在这个EventLoop绑定线程中执行，比如在MainEventLoop中，负责新连接建立的操作都要在MainEventLoop线程中运行。
+已建立的连接分发到某个SubEventLoop上，这个已建立连接的任何操作，比如接收数据发送数据，连接断开等事件处理都必须在这个SubEventLoop线程上运行，不准跑到别的SubEventLoop线程上运行。
 
-#### 1. evevtfd() 函数
+## 1. evevtfd() 函数
 
 ```c
 #include <sys/eventfd.h>
@@ -10,9 +11,10 @@ int eventfd(unsigned int initval, int flags);
 ```
 调用函数eventfd()会创建一个eventfd对象，或者也可以理解打开一个eventfd类型的文件，类似普通文件的open操作。eventfd的在内核空间维护一个无符号64位整型计数器， 初始化为initval的值。
 
-#### 如何保证一个EventLoop对象和一个线程唯一绑定（该线程只能绑定一个EventLoop对象，该EventLoop对象也必须绑定一个线程）
+## 如何保证一个EventLoop对象和一个线程唯一绑定
 
 ```C++
+// eventloop.cc
 // 防止一个线程创建多个 event_loop
 __thread EventLoop * t_loopInThisThread = nullptr;
 
