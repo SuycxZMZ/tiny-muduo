@@ -4,7 +4,7 @@ one loop per thread, 每个loop里包含一个poller和一组channel,二者没�
 
 ## 1. Channel
 
-```C++ 
+```C++
 // 封装了 sockfd 和 感兴趣的 event ，还包含了 poller返回的具体事件
 class Channel : noncopyable
 {
@@ -320,3 +320,5 @@ private:
 TcpConnection 类和 Acceptor 类是兄弟关系，Acceptor 用于 main_loop 中，对服务器监听套接字fd及其相关方法进行封装（监听、接受连接、分发连接给sub_loop等），TcpConnection 用于 SubEventLoop 中，对连接套接字fd及其相关方法进行封装（读消息事件、发送消息事件、连接关闭事件、错误事件等）。
 
 ## 5. [Buffer 与日志一起](basiclog.md)
+
+在 [读写操作](basicReadWriteModel.md) 的最后也有提及

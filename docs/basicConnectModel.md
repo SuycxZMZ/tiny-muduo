@@ -268,10 +268,10 @@ std::weak_ptr<void> m_tie;
 bool m_tied;
 
 /**
- * 其中 m_tie 在 Channel::tie( ) 函数中初始化，
- * Channel::tie( )在 TcpConnection::connectEstablished 回调中调用
- * 绑定上连接对应的 TcpConnectionPtr上，充当一个观察者
- * 在 channel 的 handelEvent 函数中，使用观察者，TcpConnection 对象的线程安全
+ * @brief 其中 m_tie 在 Channel::tie( ) 函数中初始化，
+ *        Channel::tie( )在 TcpConnection::connectEstablished 回调中调用
+ *        绑定上连接对应的 TcpConnectionPtr上，充当一个观察者
+ *        在 channel 的 handelEvent 函数中，使用观察者，TcpConnection 对象的线程安全
  * */ 
 void Channel::handelEvent(Timestamp receiveTime)
 {
