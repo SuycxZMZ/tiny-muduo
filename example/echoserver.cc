@@ -12,7 +12,7 @@ public:
                m_loop(loop),
                m_server(m_loop, listenAddr, name)
     {
-        LOG_DEBUG << "EchoServer::EchoServer()" ;
+        LOG_INFO << "EchoServer::EchoServer()" ;
         // 注册回调
         m_server.setConnCallBack(std::bind(&EchoServer::onConnection, this, std::placeholders::_1));
         m_server.setMsgCallBack(std::bind(&EchoServer::onMessage, this,
@@ -35,6 +35,7 @@ private:
         }
         else
         {
+            conn->shutdown();
         }
     }
 
