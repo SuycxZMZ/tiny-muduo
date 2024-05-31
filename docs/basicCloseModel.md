@@ -1,17 +1,19 @@
-### 连接断开
+# 连接断开逻辑
 
-#### 被动断开
+## 被动断开
+
 服务端TcpConnection::handleRead()中感知到客户端把连接断开。TcpConnection::handleRead( )函数内部调用了Linux的函数readv( )，当readv( )返回0的时候，服务端就知道客户端断开连接了。然后就接着调用TcpConnection::handleClose( )。
 ![alt text](photos/close1.png)
 
 上图中的标号1、2、3是函数调用顺序，我们可以看到：
+
 - 1. 在执行TcpConnection::handle_Close()的时候，该函数还是在SubEventLoop线程中运行的，接着调用closeCallback_(connPtr)回调函数，该函数保存的其实是TcpServer::removeConnection( )函数
 - 2. TcpServer::removeConnection( )函数调用了remvoveConnectionInLoop( )函数，该函数的运行是在MainEventLoop线程中执行的。
 - 3. removeConnectionInLoop( )函数：TcpServer对象中有一个connections_成员变量，这是一个unordered_map，负责保存【string --> TcpConnection】的映射，其实就是保存着Tcp连接的名字到TcpConnection对象的映射。因为这个Tcp连接要关闭了，所以也要把这个TcpConnection对象从connections_中删掉。然后再调用TcpConnection::connectDestroyed函数。
 另外为什么removeConnectionInLoop()要在MainEventLoop中运行，因为该函数主要是从TcpServer对象中删除某条数据。而TcpServer对象是属于MainEventLoop的。这也是贯彻了One Loop Per Thread的理念。
 - 4. TcpConnection::connectDestroyed( )函数的执行是又跳回到了subEventLoop线程中。该函数就是将Tcp连接的监听描述符从事件监听器中移除。另外SubEventLoop中的Poller类对象还保存着这条Tcp连接的channel_，所以调用channel_.remove( )将这个Tcp连接的channel对象从Poller内的数据结构中删除。
 
-#### 服务器主动关闭导致连接断开
+## 服务器主动关闭导致连接断开
 
 当服务器主动关闭时，调用TcpServer::~TcpServer()析构函数。
 
@@ -51,9 +53,10 @@ TcpServer::~TcpServer()
 - 5. SubEventLoop线程开始运行TcpConnection::connectDestroyed()
 - 6. MainEventLoop线程当前这一轮for循环跑完，共享智能指针conn离开代码块，因此被析构，但是TcpConnection对象还不会被释放，因为还有一个共享智能指针指向这个TcpConnection对象，而且这个智能指针在TcpConnection::connectDestroyed()中，只不过这个智能指针你看不到，它在这个函数中是一个隐式的this的存在。当这个函数执行完后，智能指针就真的被释放了。到此，就没有任何智能指针指向这个TcpConnection对象了。TcpConnection对象就彻底被析构删除了。
 
-#### 如果TcpConnection中有正在发送的数据，怎么保证在触发TcpConnection关闭机制后，能先让TcpConnection先把数据发送完再释放TcpConnection对象的资源？
+## 如果TcpConnection中有正在发送的数据，怎么保证在触发TcpConnection关闭机制后，能先让TcpConnection先把数据发送完再释放TcpConnection对象的资源？
 
 TcpConnection类继承了一个类
+
 ```C++
 class TcpConnection :public std::enable_shared_from_this<TcpConnection>
 ```
@@ -97,5 +100,3 @@ class TcpConnection :public std::enable_shared_from_this<TcpConnection>
 ```
 
 当事件监听器返回监听结果，就要对每一个发生事件的channel对象调用他们的HandlerEvent()函数。在这个HandlerEvent函数中，会先把tie_这个weak_ptr提升为强共享智能指针。这个强共享智能指针会指向当前的TcpConnection对象。就算你外面调用删除析构了其他所有的指向该TcpConnection对象的智能指针。你只要HandleEventWithGuard()函数没执行完，你这个TcpConnetion对象都不会被析构释放堆内存。而HandleEventWithGuard()函数里面就有负责处理消息发送事件的逻辑。当HandleEventWithGuard()函数调用完毕，这个guard智能指针就会被释放。
-
-
