@@ -1,3 +1,4 @@
+// strings asyncLoggingTest.20240601-140810.log 查看日志内容
 #include "asynclogging.h"
 #include "timestamp.h"
 

@@ -29,7 +29,7 @@ public:
     }
 
     const char* data() const { return data_; }
-    int length() const { return static_cast<int>(end() - data_); }
+    int length() const { return static_cast<int>(cur_ - data_); }
 
     char* current() { return cur_; }
     int avail() const { return static_cast<int>(end() - cur_); }
