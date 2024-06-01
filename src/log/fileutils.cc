@@ -1,7 +1,6 @@
 #include "fileutils.h"
-// #include "logging.h"
+#include "logging.h"
 
-extern const char* getErrnoMsg(int savedErrno);
 
 FileUtil::FileUtil(std::string& fileName)
     : fp_(::fopen(fileName.c_str(), "ae")),
