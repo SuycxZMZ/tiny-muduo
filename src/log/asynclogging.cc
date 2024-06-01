@@ -83,14 +83,14 @@ void AsyncLogging::threadFunc()
             buffersToWrite.resize(2);
         }
 
-        if (!newBuffer1) // 归还newBuffer1缓冲区
+        if (!newBuffer1) 
         {
             newBuffer1 = std::move(buffersToWrite.back());
             buffersToWrite.pop_back();
             newBuffer1->reset();
         }
 
-        if (!newBuffer2) // 归还newBuffer2缓冲区
+        if (!newBuffer2) 
         {
             newBuffer2 = std::move(buffersToWrite.back());
             buffersToWrite.pop_back();
