@@ -94,6 +94,7 @@ LogStream& LogStream::operator<<(double v)
         buffer_.add(len);
         return *this;
     }
+    return *this;
 }
 
 LogStream& LogStream::operator<<(char c)
