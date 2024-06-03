@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
         exit(0);
     }
     setLogging(argv[0]);
-    Logger::setLogLevel(Logger::LogLevel::WARN);
+    // Logger::setLogLevel(Logger::LogLevel::WARN);
     EventLoop loop;
     HttpServer server(&loop, InetAddress(atoi(argv[2]), argv[1]), "http-server");
     server.setHttpCallback(onRequest);

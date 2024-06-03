@@ -20,7 +20,7 @@ public:
             std::bind(&EchoServer::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 
         // 设置合适的subloop线程数量
-        server_.setThreadNum(3);
+        server_.setThreadNum(4);
     }
 
     void start()
