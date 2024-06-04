@@ -1,9 +1,11 @@
-#include "httpserver.h"
-#include "httprequest.h"
-#include "httpresponse.h"
-#include "httpcontext.h"
-#include "timestamp.h"
-#include "asynclogging.h"
+#include "HttpServer.h"
+#include "HttpRequest.h"
+#include "HttpResponse.h"
+#include "HttpContext.h"
+#include "TimeStamp.h"
+#include "AsyncLogging.h"
+
+using namespace tinymuduo;
 
 extern char favicon[555];
 bool benchmark = true;

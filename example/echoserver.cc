@@ -1,7 +1,9 @@
-#include <tinymuduo/tcpserver.h>
+#include <tinymuduo/TcpServer.h>
 
 #include <functional>
 #include <string>
+
+using namespace tinymuduo;
 
 class EchoServer
 {

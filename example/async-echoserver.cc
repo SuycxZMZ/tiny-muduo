@@ -1,4 +1,6 @@
-#include <tinymuduo/tcpserver.h>
+#include <tinymuduo/tinymuduo.h>
+
+using namespace tinymuduo;
 
 void helper() 
 {
@@ -53,27 +55,6 @@ private:
     TcpServer server_;
 };
 
-int kRollSize = 500*1000*1000;
-
-// 异步日志
-std::unique_ptr<AsyncLogging> g_asyncLog;
-
-void asyncOutput(const char* msg, int len)
-{
-    g_asyncLog->append(msg, len);
-}
-
-void setLogging(const char* argv0)
-{
-    Logger::setOutput(asyncOutput);
-    // Logger::setLogLevel(Logger::LogLevel::WARN);
-    char name[256];
-    strncpy(name, argv0, 256);
-    g_asyncLog.reset(new AsyncLogging(::basename(name), kRollSize));
-    g_asyncLog->start();
-}
-
-
 int main(int argc, char* argv[]) 
 {
     if (argc != 3) 
@@ -81,9 +62,10 @@ int main(int argc, char* argv[])
         helper();
         exit(0);
     }
+    
+    tinymuduo::initAsyncLogging(argv[0], 1024 * 1024 * 50);
+    tinymuduo::AsyncLogStart();
 
-    setLogging(argv[0]);
-    LOG_INFO << "pid = " << getpid();
     EventLoop loop;
     InetAddress addr(atoi(argv[2]), argv[1]);
     EchoServer server(&loop, addr, "EchoServer");

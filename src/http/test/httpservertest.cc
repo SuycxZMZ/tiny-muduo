@@ -1,8 +1,10 @@
-#include "httpserver.h"
-#include "httprequest.h"
-#include "httpresponse.h"
-#include "httpcontext.h"
-#include "timestamp.h"
+#include "HttpServer.h"
+#include "HttpRequest.h"
+#include "HttpResponse.h"
+#include "HttpContext.h"
+#include "TimeStamp.h"
+
+using namespace tinymuduo;
 
 extern char favicon[555];
 // 不进行压力测试时设为 false

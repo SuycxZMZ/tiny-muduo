@@ -62,7 +62,19 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "signal.h": "c"
+        "signal.h": "c",
+        "charconv": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "buffer": "cpp",
+        "netfwd": "cpp",
+        "source_location": "cpp",
+        "iomanip": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp",
+        "format": "cpp"
     },
     "Codegeex.GenerationPreference": "line by line"
 }

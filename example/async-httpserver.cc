@@ -1,4 +1,6 @@
-#include <tinymuduo/httpserver.h>
+#include <tinymuduo/HttpServer.h>
+
+using namespace tinymuduo;
 
 extern char favicon[555];
 bool benchmark = true;

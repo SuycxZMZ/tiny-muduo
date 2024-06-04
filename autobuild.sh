@@ -14,11 +14,19 @@ if [ ! -d `lib` ]; then
     echo "lib 目录创建成功"  
 fi
 
+# 检查在example文件夹下是否存在bin目录,如果不存在,则创建并使 bin 目录的权限为 777
+if [ ! -d `pwd`/example/bin ]; then
+    mkdir `pwd`/example/bin
+    chmod 777 `pwd`/example/bin
+    echo "example/bin 目录创建成功"
+
+fi
+
 rm -rf `pwd`/build/* # clean build directory
 
 cd `pwd`/build &&
     cmake .. &&
-    make
+    make -j4
 cd ..
 
 # 把头文件拷贝到 /usr/include/tinymuduo  so库拷贝到 /usr/lib
