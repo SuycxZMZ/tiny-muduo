@@ -8,6 +8,7 @@ file(GLOB SRC_LIST
     http/*.cc
 )
 
-add_library(tinymuduo SHARED ${SRC_LIST})
+# add_library(tinymuduo SHARED ${SRC_LIST})
+add_library(tinymuduo STATIC ${SRC_LIST})
 
-add_subdirectory(http/test)
+# add_subdirectory(http/test) STATIC
