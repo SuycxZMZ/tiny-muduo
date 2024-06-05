@@ -12,10 +12,10 @@
 
     硬性要求：linux环境，C++编译器支持C++11标准。
     测试环境：
-        ubuntu20.04,
-        g++ 9.3.0,
-        GNU Make 4.2.1,
-        cmake version 3.16.3
+        ubuntu24.04,
+        g++ 11.4.0,
+        GNU Make 4.3,
+        cmake version 3.28.3
     
     编译&&安装：
         git clone https://github.com/SuycxZMZ/tiny-muduo.git
