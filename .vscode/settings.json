@@ -74,7 +74,8 @@
         "semaphore": "cpp",
         "span": "cpp",
         "stop_token": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "codecvt": "cpp"
     },
     "Codegeex.GenerationPreference": "line by line"
 }

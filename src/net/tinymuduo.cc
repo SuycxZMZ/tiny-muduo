@@ -2,6 +2,8 @@
 
 namespace tinymuduo 
 {
+std::shared_ptr<tinymuduo::AsyncLogging> g_asyncLog;
+
 void do_asyncLog(const char* msg, int len) {
     if (tinymuduo::g_asyncLog) {
         tinymuduo::g_asyncLog->append(msg, len);

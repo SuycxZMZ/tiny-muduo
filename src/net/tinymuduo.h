@@ -14,8 +14,6 @@
 
 namespace tinymuduo
 {
-std::shared_ptr<tinymuduo::AsyncLogging> g_asyncLog;
-
 void do_asyncLog(const char* msg, int len);
 
 void initAsyncLogging(const char* filename, const off_t RollSize);
