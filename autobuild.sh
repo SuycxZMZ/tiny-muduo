@@ -42,6 +42,7 @@ cp -r `pwd`/src/log/*.h /usr/include/tinymuduo
 cp -r `pwd`/src/net/*.h /usr/include/tinymuduo
 cp -r `pwd`/src/http/*.h /usr/include/tinymuduo
 cp `pwd`/lib/*.so /usr/lib
+cp `pwd`/lib/*.a /usr/lib
 
 ldconfig
 
