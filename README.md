@@ -20,13 +20,14 @@
     编译&&安装：
         git clone https://github.com/SuycxZMZ/tiny-muduo.git
         cd tiny-muduo
-        需要root权限，在工程目录下执行：
-        sh ./autobuild.sh
+        mkdir build
+        cd build
+        cmake ..
+        make 
+        sudo make install
 
     测试回显服务器：
-        cd example
-        make clean
-        make
+        cd test
         ./echoserver
         ## 正常安装的话已经开始打印信息了，并等待客户端连接
 
