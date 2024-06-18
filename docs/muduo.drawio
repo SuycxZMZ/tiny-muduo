@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-06-18T09:45:11.292Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="ky4AcmIPwgNnA5BfyosW" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-18T13:43:28.673Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="oGEndRjo49-67Xmg_20d" version="24.5.4" type="github">
   <diagram name="第 1 页" id="MG-MEg68l0_8rto8ONjd">
-    <mxGraphModel dx="-460" dy="-936" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="233" dy="-496" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -162,28 +162,96 @@
           <mxGeometry x="2870" y="1630" width="410" height="90" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-3" value="TcpServer启动流程" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="2085" y="2368" width="130" height="30" as="geometry" />
+          <mxGeometry x="2120" y="2369" width="130" height="30" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-4" value="1，server构造，主要操作是使用用户传进来的main_loop指针构造acceptor，并保存用户指定的连接回调和消息回调等，这些个回调函数保存在server对应的成员变量中，之后acceptor每接收一个连接，就会将其打包进新连接的TcpConnection中。在构造完acceptor之后对其绑定新连接进来时的回调--&amp;gt;TcpServer::newConn" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2005" y="2398" width="290" height="120" as="geometry" />
+          <mxGeometry x="2040" y="2399" width="290" height="120" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-5" target="2zKJC8dyGE_CeT7ELSUe-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-5" value="2，acceptor的构造主要工作是，对用户传进来的服务器地址进行socket描述符的创建和绑定，随后将Acceptor::handleRead()回调绑到m_acceptChannel上，在新连接到来时，监听描述符可读，在其上执行handleRead()回调" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2005" y="2540" width="290" height="90" as="geometry" />
+          <mxGeometry x="2040" y="2541" width="290" height="90" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-6" target="2zKJC8dyGE_CeT7ELSUe-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-6" value="3，构造执行完成之后，用户在合适的时机开启server，即调用server.start()，这个start做的第一件事情是启动所有的子loop，即所有的子loop开启事件循环，第二件事是开启acceptor对连接描述符的监听，即调用accept_channel.listen()，这个操作最终会利用channel中绑定的EventLoop指针，添加到main_loop的epoll中" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2005" y="2650" width="290" height="110" as="geometry" />
+          <mxGeometry x="2040" y="2651" width="290" height="110" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-7" value="4，用户在调用start之后，再调用main_loop.loop()，开启main_loop，也就是开启acceptor事件循环，之后，server就会阻塞在main_loop的epoll_wait上，等待有新的用户连接过来" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2005" y="2790" width="290" height="70" as="geometry" />
+          <mxGeometry x="2040" y="2791" width="290" height="70" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.498;entryY=-0.029;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-4" target="2zKJC8dyGE_CeT7ELSUe-5">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-13" value="用户连接建立与分发流程" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="2430" y="2369" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-14" value="用户信息的接收与发送流程" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="2740" y="2369" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-15" value="用户连接断开流程" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="3090" y="2369" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-17" target="2zKJC8dyGE_CeT7ELSUe-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-17" value="1，用户连接到来，m_acceptChannel上的描述符可读，acceptor上的epoll_wait返回，其loop执行Acceptor::handleRead()回调，回调中先走accept，创建用户连接socket，再执行Acceptor::m_newConnCallBack，这个回调绑定的是TcpServer::newConn，该函数从server的线程池中选一个loop的指针和用户连接socket信息创建一个TcpConnection" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2365" y="2399" width="290" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-18" target="2zKJC8dyGE_CeT7ELSUe-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-18" value="2，创建的connection加入server的连接map表中，再绑上用户回调" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2365" y="2550" width="290" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-19" target="2zKJC8dyGE_CeT7ELSUe-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-19" value="3，利用从线程池中选出的loop指针ioLoop，执行ioLoop-&amp;gt;runInLoop()，其中绑定的任务是TcpConnection::connectionEstablished()，由于是在main_loop执行调用，这个任务与新连接的Tcpconn与上面的回调打包塞到选出的ioLoop的m_pendingFunctors任务队列中，并且再执行一次wakeup操作，唤醒阻塞在epoll_wait上的ioLoop" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2365" y="2631" width="290" height="119" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-20" value="4，ioLoop执行TcpConnection::connectionEstablished()，将其中绑定的channel调用tie一下，使channel拿一个connection的弱指针观察conn，作用后面说。再开启这个conn的可读事件，丢到ioLoop的epoll中。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2365" y="2770" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-24" target="2zKJC8dyGE_CeT7ELSUe-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-24" value="1，用户数据到来，ioLoop从epoll_wait上返回，并执行对应channel上的handleEvent回调，发生什么事件就执行哪个回调，channel的各个事件回调是在对应的conn建立时传入的TcpConnect对应的回调函数。用户数据到达，就调到了 TcpConnection::handleRead()回调" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2690" y="2399" width="290" height="111" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-25" value="1，用户连接到来，m_acceptChannel上的描述符可读，acceptor上的epoll_wait返回，其loop执行Acceptor::handleRead()回调，回调中先走accept，创建用户连接socket，再执行Acceptor::m_newConnCallBack，这个回调绑定的是TcpServer::newConn，该函数从server的线程池中选一个loop的指针和用户连接socket信息创建一个TcpConnection" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="3010" y="2399" width="290" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2835" y="2650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-26" value="2，TcpConnection::handleRead回调先用自己带的input_buffer缓冲区把数据读出，正常读取返回后，调用已经绑好的用户 msgCallBack 传入input_buffer，做业务处理。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2690" y="2540" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-27" target="2zKJC8dyGE_CeT7ELSUe-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-27" value="3，input_buffer在读缓冲区时如果当前缓冲区可写空间小于64k，就会开辟一块64k的栈上空间，配合缓冲区进行分散读内核缓冲区，读完把栈上空间内容追加到input_buffer中。如果原本的可写空间大于64k则只把数据读到缓冲区，不用栈上空间。这里，每次最多读取128k的数据，如果还是读不完，由于muduo是电平触发，下次epoll_wait还会触发，信息丢不了" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2690" y="2650.5" width="290" height="119.5" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-28" target="2zKJC8dyGE_CeT7ELSUe-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-28" value="4，回发数据：当用户也就是库的使用者做完业务逻辑给客户端发送回应时，调用conn-&amp;gt;send()，在调用write写缓冲后，如果数据一次写完，就算这次任务执行完了，如果一次写不完，就将剩下的数据添加到conn的output_buffer缓冲区中，并通过该conn的channel向ioLoop中注册可写事件" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2690" y="2800" width="290" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-29" value="5，在之后的某个时间点，上面的conn中fd的发送缓冲区空间腾出来的时候，fd的可写事件就触发ioLoop的epoll返回，并执行对应conn上的handleWrite，将output_buffer上的数据写到fd的发送缓冲区，在成功写完后删除在ioLoop中对应fd的可写事件，并执行用户传入的writeCompleteCallBack回调。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2690" y="2936.5" width="290" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-35" value="使用的是accept(4)，直接创建NONBLOCK描述符" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="2350" y="2880" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-36" value="在channel中加一个指向对应的conn弱指针tie的目的：在回调channel上的handleEvent时，要在作用域内将其提升为强指针，再回调，可以保证在回调时，如果用户不小心删除了该connection，回调中仍然保持一个引用计数，在回调之行结束之后再进行connection的析构，避免回调之行到半路conn析构造成未定义。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="2310" y="3060" width="270" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
