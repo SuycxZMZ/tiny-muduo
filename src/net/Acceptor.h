@@ -32,7 +32,7 @@ private:
     // main_loop
     EventLoop * m_loop;
 
-    // acceptfd 绑定到 listen_addr
+    // acceptfd 绑定到 listen_addr，设置非阻塞
     muduoSocket m_acceptSocket;
     Channel m_acceptChannel;
 

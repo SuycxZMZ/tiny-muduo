@@ -15,7 +15,6 @@ namespace tinymuduo
 {
 class Channel;
 class Poller;
-// 事件循环类 -- > 包括 Channel 和 Poller 两个类
 class EventLoop : noncopyable
 {
 public:
@@ -30,7 +29,7 @@ public:
     Timestamp pollReturnTime() const { return m_pollReturnTime; }
 
     void runInLoop(Functor cb);   // 在当前loop中执行cb
-    void queueInLoop(Functor cb); // 把cb放入队列
+    void queueInLoop(Functor cb); // 把cb放入任务队列，其他loop调用
 
     // 内部接口
     void wakeUp(); // 唤醒 loop 所在线程
@@ -55,7 +54,7 @@ private:
     int m_wakeupFd;                           // 通过eventfd系统调用，mainloop拿到新的channel后，轮询选择一个subloop，通过该成员唤醒subloop
     std::unique_ptr<Channel> m_wakeupChannel; // 包含 m_wakeupFd 以及对应的事件
 
-    ChannelList m_channelList;
+    ChannelList m_channelList;                // 没轮poll返回的有感兴趣事件到达的channel集合
     Channel *m_currentActiveChannel;
 
     std::mutex m_mutex;                     // 保护m_pendingFunctors的线程安全
