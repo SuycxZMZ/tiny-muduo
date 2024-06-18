@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-06-18T13:44:29.134Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="38wrgHJyUfSN39MDzwz6" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-18T13:59:11.213Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="ltawoG2LHs_Cj8y-oPOk" version="24.5.4" type="github">
   <diagram name="第 1 页" id="MG-MEg68l0_8rto8ONjd">
-    <mxGraphModel dx="233" dy="-496" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1899" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -221,7 +221,7 @@
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-24" value="1，用户数据到来，ioLoop从epoll_wait上返回，并执行对应channel上的handleEvent回调，发生什么事件就执行哪个回调，channel的各个事件回调是在对应的conn建立时传入的TcpConnect对应的回调函数。用户数据到达，就调到了 TcpConnection::handleRead()回调" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="2690" y="2399" width="290" height="111" as="geometry" />
         </mxCell>
-        <mxCell id="2zKJC8dyGE_CeT7ELSUe-25" value="1，用户连接到来，m_acceptChannel上的描述符可读，acceptor上的epoll_wait返回，其loop执行Acceptor::handleRead()回调，回调中先走accept，创建用户连接socket，再执行Acceptor::m_newConnCallBack，这个回调绑定的是TcpServer::newConn，该函数从server的线程池中选一个loop的指针和用户连接socket信息创建一个TcpConnection" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-25" value="1，当客户端调用close(&lt;font color=&quot;#ff0000&quot;&gt;那调用shutdown有什么不一样&lt;/font&gt;)关闭连接时，服务端的ioLoop中对应的channel可读，回调conn的handleRead，读到0代表对端关闭，执行handleClose，移除其在epoll上的所有时间，并依次调用用户传来的 onConnCallBack 和 server为其绑定的closecallback，后者绑定的是server的removeChannel，就是把该连接从server的连接map中移除。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="3010" y="2399" width="290" height="120" as="geometry" />
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2zKJC8dyGE_CeT7ELSUe-26">
@@ -252,6 +252,9 @@
         </mxCell>
         <mxCell id="2zKJC8dyGE_CeT7ELSUe-36" value="在channel中加一个指向对应的conn弱指针tie的目的：在回调channel上的handleEvent时，要在作用域内将其提升为强指针，再回调，可以保证在回调时，如果用户不小心删除了该connection，回调中仍然保持一个引用计数，在回调之行结束之后再进行connection的析构，避免回调之行到半路conn析构造成未定义。" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="2310" y="3060" width="270" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="2zKJC8dyGE_CeT7ELSUe-37" value="2，当客户端程序被异常杀死时，epoll同样会返回，但是返回的事件为 EPOLLHUP，代表对端挂断，这种情况直接走channel上绑定的TcpConnection::handleClose，与上面一样" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="3010" y="2541" width="290" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
