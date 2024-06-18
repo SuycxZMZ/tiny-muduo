@@ -92,7 +92,7 @@ void TcpConnection::sendInLoop(const void * msg, size_t len)
             if (errno != EWOULDBLOCK)
             {
                 LOG_ERROR << "TcpConnection::sendInLoop";
-                // 对端 SIGPIPE 或者 ECONNRESET
+                // 对端 关闭
                 if (errno == EPIPE || errno == ECONNRESET)
                 {
                     faultError = true;
