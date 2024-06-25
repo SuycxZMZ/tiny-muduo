@@ -22,7 +22,7 @@ public:
                                           std::placeholders::_2,
                                           std::placeholders::_3));
         // 设置线程数
-        m_server.setThreadNum(4);
+        m_server.setThreadNum(2);
     }
     void start()
     {

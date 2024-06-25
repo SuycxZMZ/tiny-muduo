@@ -10,6 +10,7 @@ set(TESTS
     async-echoserver
     echoserver
     test_asynclog
+    rawepoll
 )
 
 # 循环添加测试
