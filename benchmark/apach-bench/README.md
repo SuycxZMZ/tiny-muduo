@@ -14,5 +14,5 @@ ab --help
 
 简单测试
 ```shell
-ab -n 10000 -c 1000 -k http://localhost:8080/
+ab -n 10000 -c 1000 -k http://localhost:8000/
 ```
