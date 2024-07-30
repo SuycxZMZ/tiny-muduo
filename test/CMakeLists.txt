@@ -11,6 +11,7 @@ set(TESTS
     echoserver
     test_asynclog
     rawepoll
+    bench
 )
 
 # 循环添加测试
