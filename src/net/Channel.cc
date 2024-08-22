@@ -27,10 +27,11 @@ void Channel::tie(const std::shared_ptr<void> & obj)
     m_tied = true;
 }
 
-/*
-当改变 fd 的 events事件后，update负责通过poller更改fd对应的事件 epoll_ctl
-Eventloop ==> channel_list + poller
-*/ 
+/**
+ * @brief 当改变 fd 的 events事件后，update负责通过poller更改fd对应的事件 epoll_ctl
+ *        Eventloop ==> channel_list + poller
+ *
+ */
 void Channel::update()
 {
     m_loop->updateChannel(this);
@@ -60,6 +61,8 @@ void Channel::handelEvent(Timestamp receiveTime)
 void Channel::handleEventWithGuard(Timestamp recvTime)
 {
     LOG_INFO << "channel handle event " << m_revents;
+
+    // EPOLLHUP 对端挂断，可能是被 kill
     if ((m_revents & EPOLLHUP) && !(m_revents & EPOLLIN))
     {
         if (m_closeCallBack) m_closeCallBack();

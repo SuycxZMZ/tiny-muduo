@@ -102,7 +102,7 @@ void EventLoop::quit()
     /**
      * 在其他的线程中调用了quit 走下面的if 
      * 要先把对应 loop 唤醒，使其在 poll上返回，才能跳出 loop 中的while循环
-     * 每个loop都可以通过 wakeupfd 来唤醒
+     * 每个loop都可以通过自身的 wakeupfd 来唤醒
     */
     if (!isInLoopThread())
     {
@@ -124,7 +124,7 @@ void EventLoop::runInLoop(Functor cb)
     }
 }
 
-// 把cb放入队列，在其他线程执行cb
+// 把cb放入队列，在自身线程中执行，别的线程只是拿到本线程的loop指针
 void EventLoop::queueInLoop(Functor cb)
 {
     {
@@ -132,6 +132,8 @@ void EventLoop::queueInLoop(Functor cb)
         m_pendingFunctors.emplace_back(std::move(cb));
     }
     // m_callingPendingFunctors = true 情况下，正在执行回调。wakeup一次，保证再次poll的时候不阻塞
+    // 因为每次 doPendingFunctors 直接把任务队列交换走，保证后面再加不阻塞
+    // 如果不weakup，再加入的任务在下一个 poll-cycle 可能无法立即执行
     if (!isInLoopThread() || m_callingPendingFunctors)
     {
         wakeUp();
@@ -177,4 +179,14 @@ void EventLoop::doPendingFunctors()
     }
     m_callingPendingFunctors = false;
 }
+
+EventLoop *CheckLoopNotNull(EventLoop *loop)
+{
+    if (loop == nullptr)
+    {
+        LOG_FATAL << "EventLoop::getEventLoop() invoked in wrong thread";
+    }
+    return loop;
+}
+
 } // namespace tinymuduo

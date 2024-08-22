@@ -12,7 +12,7 @@ namespace tinymuduo
 class EventLoop;
 // class Timestamp;
 
-// 封装了 sockfd 和 感兴趣的 event ，还包含了 poller返回的具体事件
+// 封装了 sockfd 和 感兴趣的 event 以及event上的回调函数，还包含了 poller返回的具体事件
 class Channel : noncopyable
 {
 public:
@@ -30,8 +30,10 @@ public:
     void setCloseCallBack(EventCallBack cb) { m_closeCallBack = std::move(cb); }
     void setErrorCallBack(EventCallBack cb) { m_errorCallBack = std::move(cb); }
 
-    // 防止手动 remove 掉 channel 之后，还在执行回调操作
-    void tie(const std::shared_ptr<void> &);
+    // 防止tcpconn已经关闭的情况下还在执行回调
+    // channel在被构造时会传入所属连接的智能指针，但是内部用弱指针拉过去
+    // 当执行回调时，先提升再执行，提升失败说明已经释放，不再执行回调
+    void tie(const std::shared_ptr<void> & obj);
 
     int fd() { return m_fd; }
     int events() { return m_events; }
@@ -63,7 +65,7 @@ private:
     static const int kReadEvent;
     static const int kWriteEvent;
 
-    EventLoop *m_loop; // 事件循环
+    EventLoop *m_loop; // 所属的事件循环
     int m_fd;          // poller监听的对象
     int m_events;      // fd 上感兴趣的事件
     int m_revents;     // poller返回的具体发生的事件

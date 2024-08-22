@@ -51,24 +51,17 @@ private:
     const pid_t m_threadId;                    // 当前loop所在线程的id
     Timestamp m_pollReturnTime;
     std::unique_ptr<Poller> m_poller;
-    int m_wakeupFd;                           // 通过eventfd系统调用，mainloop拿到新的channel后，轮询选择一个subloop，通过该成员唤醒subloop
+    int m_wakeupFd;                           // 通过eventfd系统调用创建，mainloop拿到新的channel后，轮询选择一个subloop，通过该成员唤醒subloop
     std::unique_ptr<Channel> m_wakeupChannel; // 包含 m_wakeupFd 以及对应的事件
 
-    ChannelList m_channelList;                // 没轮poll返回的有感兴趣事件到达的channel集合
+    ChannelList m_channelList;                // 每轮poll返回的有感兴趣事件到达的channel集合
     Channel *m_currentActiveChannel;
 
     std::mutex m_mutex;                     // 保护m_pendingFunctors的线程安全
     std::vector<Functor> m_pendingFunctors; // 存储loop需要执行的所有回调操作
 };
 
-static EventLoop * CheckLoopNotNull(EventLoop * loop)
-{
-    if (loop == nullptr)
-    {
-        LOG_FATAL << "EventLoop::getEventLoop() invoked in wrong thread";
-    }
-    return loop;
-}
+EventLoop *CheckLoopNotNull(EventLoop *loop);
 }
 
 #endif

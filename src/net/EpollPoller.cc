@@ -15,6 +15,7 @@ const int kAdded = 1;
 // channel 从poller中删除
 const int kDeleted = 2;
 
+/// EPOLL_CLOEXEC宏：在当前描述符执行 exec 函数族时关闭，不给子进程用
 EpollPoller::EpollPoller(EventLoop * loop) : 
     Poller(loop),
     m_epollfd(::epoll_create1(EPOLL_CLOEXEC)),
@@ -32,13 +33,10 @@ EpollPoller::~EpollPoller()
     ::close(m_epollfd);
 }
 
-/**
- * epoll_wait
- * 
-*/
+/// epoll_wait
 Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
 {
-    LOG_DEBUG << "epoll_wait() start" ; 
+    LOG_DEBUG << "---------- one poll-cycle [epoll_wait()] start ----------";
     int numEvents = ::epoll_wait(m_epollfd, 
                                  &*m_events.begin(),
                                  static_cast<int>(m_events.size()),
@@ -60,7 +58,7 @@ Timestamp EpollPoller::poll(int timeoutMs, ChannelList * activeChannels)
     }
     else
     {
-        if (saveErrno != EINTR)
+        if (saveErrno != EINTR) // EINTR: 被外部信号中断
         {
             LOG_ERROR << "EPollerPoller::poll()";
         }
