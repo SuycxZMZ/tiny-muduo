@@ -12,7 +12,7 @@ bool benchmark = true;
 
 void onRequest(const HttpRequest& req, HttpResponse* resp)
 {
-    std::cout << "Headers " << req.methodString() << " " << req.path() << std::endl;
+    // std::cout << "Headers " << req.methodString() << " " << req.path() << std::endl;
     
     // 打印头部
     if (!benchmark)
