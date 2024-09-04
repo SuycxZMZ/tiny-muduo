@@ -32,6 +32,7 @@ public:
     }
     
     void start();
+    void setThreadNum(int num) { server_.setThreadNum(num);  }
 
 private:
     void onConnection(const TcpConnectionPtr& conn);

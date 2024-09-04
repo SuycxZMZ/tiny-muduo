@@ -39,3 +39,21 @@ Webbench对服务器进行压力测试，经压力测试可以实现上万的并
 > * 每秒钟传输数据量： bytes/sec
 > * 所有访问均成功
 
+## 压力较大的测试
+
+修改进程最大文件描述符数量，临时修改
+`ulimit -n 65535`
+
+编辑 /etc/security/limits.conf 文件，在末尾添加：
+`* soft nofile 65535`
+`* hard nofile 65535`
+
+ 调整进程的最大虚拟内存大小 ulimit -v unlimited
+
+
+
+
+
+
+
+
