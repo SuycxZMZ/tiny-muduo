@@ -17,7 +17,7 @@ public:
     using TimerCallback = std::function<void()>;
 
     Timer(TimerCallback cb, Timestamp when, double interval)
-        : m_callBack(move(cb)),
+        : m_callBack(cb),
           m_expiration(when),
           m_interval(interval),
           m_repeat(interval > 0.0) // 一次性定时器设置为0

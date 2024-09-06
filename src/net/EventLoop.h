@@ -9,7 +9,7 @@
 #include "noncopyable.h"
 #include "TimeStamp.h"
 #include "CurrentThread.h"
-#include "Logging.h"
+// #include "Logging.h"
 
 namespace tinymuduo
 {

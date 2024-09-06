@@ -1,7 +1,6 @@
 #ifndef HTTP_HTTPREQUEST_H
 #define HTTP_HTTPREQUEST_H
 
-#include "noncopyable.h"
 #include "TimeStamp.h"
 #include <unordered_map>
 

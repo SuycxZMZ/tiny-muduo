@@ -1,0 +1,218 @@
+[
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/Buffer.cc.o -c /home/suycx/Code/tiny-muduo/src/base/Buffer.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/Buffer.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/Buffer.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/CurrentThread.cc.o -c /home/suycx/Code/tiny-muduo/src/base/CurrentThread.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/CurrentThread.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/CurrentThread.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/MuduoThread.cc.o -c /home/suycx/Code/tiny-muduo/src/base/MuduoThread.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/MuduoThread.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/MuduoThread.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/TimeStamp.cc.o -c /home/suycx/Code/tiny-muduo/src/base/TimeStamp.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/TimeStamp.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/TimeStamp.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/Timer.cc.o -c /home/suycx/Code/tiny-muduo/src/base/Timer.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/Timer.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/Timer.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/base/TimerQueue.cc.o -c /home/suycx/Code/tiny-muduo/src/base/TimerQueue.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/base/TimerQueue.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/base/TimerQueue.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/http/HttpContext.cc.o -c /home/suycx/Code/tiny-muduo/src/http/HttpContext.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/http/HttpContext.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/http/HttpContext.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/http/HttpResponse.cc.o -c /home/suycx/Code/tiny-muduo/src/http/HttpResponse.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/http/HttpResponse.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/http/HttpResponse.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/http/HttpServer.cc.o -c /home/suycx/Code/tiny-muduo/src/http/HttpServer.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/http/HttpServer.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/http/HttpServer.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/AsyncLogging.cc.o -c /home/suycx/Code/tiny-muduo/src/log/AsyncLogging.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/AsyncLogging.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/AsyncLogging.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/Date.cc.o -c /home/suycx/Code/tiny-muduo/src/log/Date.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/Date.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/Date.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/FileUtils.cc.o -c /home/suycx/Code/tiny-muduo/src/log/FileUtils.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/FileUtils.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/FileUtils.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/LogFile.cc.o -c /home/suycx/Code/tiny-muduo/src/log/LogFile.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/LogFile.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/LogFile.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/LogStream.cc.o -c /home/suycx/Code/tiny-muduo/src/log/LogStream.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/LogStream.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/LogStream.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/Logging.cc.o -c /home/suycx/Code/tiny-muduo/src/log/Logging.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/Logging.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/Logging.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/log/TimeZone.cc.o -c /home/suycx/Code/tiny-muduo/src/log/TimeZone.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/log/TimeZone.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/log/TimeZone.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/Acceptor.cc.o -c /home/suycx/Code/tiny-muduo/src/net/Acceptor.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/Acceptor.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/Acceptor.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/Channel.cc.o -c /home/suycx/Code/tiny-muduo/src/net/Channel.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/Channel.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/Channel.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/DefaultPoller.cc.o -c /home/suycx/Code/tiny-muduo/src/net/DefaultPoller.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/DefaultPoller.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/DefaultPoller.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/EpollPoller.cc.o -c /home/suycx/Code/tiny-muduo/src/net/EpollPoller.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/EpollPoller.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/EpollPoller.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/EventLoop.cc.o -c /home/suycx/Code/tiny-muduo/src/net/EventLoop.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/EventLoop.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/EventLoop.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/EventLoopThread.cc.o -c /home/suycx/Code/tiny-muduo/src/net/EventLoopThread.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/EventLoopThread.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/EventLoopThread.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/EventLoopThreadPool.cc.o -c /home/suycx/Code/tiny-muduo/src/net/EventLoopThreadPool.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/EventLoopThreadPool.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/EventLoopThreadPool.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/InetAddress.cc.o -c /home/suycx/Code/tiny-muduo/src/net/InetAddress.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/InetAddress.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/InetAddress.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/MuduoSocket.cc.o -c /home/suycx/Code/tiny-muduo/src/net/MuduoSocket.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/MuduoSocket.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/MuduoSocket.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/Poller.cc.o -c /home/suycx/Code/tiny-muduo/src/net/Poller.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/Poller.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/Poller.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/TcpConnection.cc.o -c /home/suycx/Code/tiny-muduo/src/net/TcpConnection.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/TcpConnection.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/TcpConnection.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/TcpServer.cc.o -c /home/suycx/Code/tiny-muduo/src/net/TcpServer.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/TcpServer.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/TcpServer.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build",
+  "command": "/usr/bin/c++ -Dtinymuduo_EXPORTS -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -fPIC -o CMakeFiles/tinymuduo.dir/src/net/tinymuduo.cc.o -c /home/suycx/Code/tiny-muduo/src/net/tinymuduo.cc",
+  "file": "/home/suycx/Code/tiny-muduo/src/net/tinymuduo.cc",
+  "output": "CMakeFiles/tinymuduo.dir/src/net/tinymuduo.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/httpservertest.dir/httpservertest.cc.o -c /home/suycx/Code/tiny-muduo/test/httpservertest.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/httpservertest.cc",
+  "output": "test/CMakeFiles/httpservertest.dir/httpservertest.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/async-httpserver.dir/async-httpserver.cc.o -c /home/suycx/Code/tiny-muduo/test/async-httpserver.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/async-httpserver.cc",
+  "output": "test/CMakeFiles/async-httpserver.dir/async-httpserver.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/async-echoserver.dir/async-echoserver.cc.o -c /home/suycx/Code/tiny-muduo/test/async-echoserver.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/async-echoserver.cc",
+  "output": "test/CMakeFiles/async-echoserver.dir/async-echoserver.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/echoserver.dir/echoserver.cc.o -c /home/suycx/Code/tiny-muduo/test/echoserver.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/echoserver.cc",
+  "output": "test/CMakeFiles/echoserver.dir/echoserver.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/test_asynclog.dir/test_asynclog.cc.o -c /home/suycx/Code/tiny-muduo/test/test_asynclog.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/test_asynclog.cc",
+  "output": "test/CMakeFiles/test_asynclog.dir/test_asynclog.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/rawepoll.dir/rawepoll.cc.o -c /home/suycx/Code/tiny-muduo/test/rawepoll.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/rawepoll.cc",
+  "output": "test/CMakeFiles/rawepoll.dir/rawepoll.cc.o"
+},
+{
+  "directory": "/home/suycx/Code/tiny-muduo/build/test",
+  "command": "/usr/bin/c++  -I/home/suycx/Code/tiny-muduo/src/base -I/home/suycx/Code/tiny-muduo/src/log -I/home/suycx/Code/tiny-muduo/src/net -I/home/suycx/Code/tiny-muduo/src/http  -g -fPIC -g -std=gnu++17 -o CMakeFiles/bench.dir/bench.cc.o -c /home/suycx/Code/tiny-muduo/test/bench.cc",
+  "file": "/home/suycx/Code/tiny-muduo/test/bench.cc",
+  "output": "test/CMakeFiles/bench.dir/bench.cc.o"
+}
+]

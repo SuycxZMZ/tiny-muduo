@@ -1,12 +1,9 @@
 #ifndef ASYNC_LOGGING_H
 #define ASYNC_LOGGING_H
 
-#include "noncopyable.h"
+
 #include "MuduoThread.h"
 #include "FixedBuffer.h"
-#include "LogStream.h"
-#include "LogFile.h"
-
 #include <vector>
 #include <memory>
 #include <mutex>

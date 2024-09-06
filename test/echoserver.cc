@@ -1,5 +1,5 @@
+#include "Logging.h"
 #include "TcpServer.h"
-
 #include <functional>
 #include <string>
 

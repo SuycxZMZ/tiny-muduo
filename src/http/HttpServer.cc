@@ -1,5 +1,5 @@
 #include "HttpServer.h"
-
+#include "Logging.h"
 #include <memory>
 
 namespace tinymuduo

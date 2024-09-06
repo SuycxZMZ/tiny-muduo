@@ -6,7 +6,7 @@
 #include <string>
 
 #ifndef NDEBUG
-#    include <assert.h>
+  #include <assert.h>
 #endif
 
 ///

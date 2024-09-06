@@ -1,7 +1,5 @@
 #include "AsyncLogging.h"
-#include "TimeStamp.h"
-
-#include <stdio.h>
+#include "LogFile.h"
 
 namespace tinymuduo
 {

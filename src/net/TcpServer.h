@@ -6,7 +6,6 @@
 #include <unordered_map>
 #include <string>
 #include <atomic>
-
 #include "noncopyable.h"
 #include "EventLoop.h"
 #include "Acceptor.h"
@@ -14,9 +13,6 @@
 #include "EventLoopThreadPool.h"
 #include "TcpConnection.h"
 #include "CallBacks.h"
-#include "Buffer.h"
-#include "TimeStamp.h"
-#include "AsyncLogging.h"
 
 namespace tinymuduo
 {

@@ -3,7 +3,6 @@
 
 #include "TcpServer.h"
 #include "noncopyable.h"
-#include "Logging.h"
 #include "HttpContext.h"
 #include "HttpRequest.h"
 #include "HttpResponse.h"

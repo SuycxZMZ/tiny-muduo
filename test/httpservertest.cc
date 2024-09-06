@@ -1,8 +1,9 @@
 #include "HttpServer.h"
 #include "HttpRequest.h"
 #include "HttpResponse.h"
-#include "HttpContext.h"
+#include "Logging.h"
 #include "TimeStamp.h"
+#include <iostream>
 
 using namespace tinymuduo;
 
