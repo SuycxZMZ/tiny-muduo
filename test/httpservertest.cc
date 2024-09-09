@@ -4,6 +4,7 @@
 #include "Logging.h"
 #include "TimeStamp.h"
 #include <iostream>
+#include <signal.h>
 
 using namespace tinymuduo;
 
@@ -60,14 +61,14 @@ void onRequest(const HttpRequest& req, HttpResponse* resp)
 
 }
 
-int main(int argc, char* argv[])
-{
-    Logger::setLogLevel(Logger::LogLevel::WARN);
-    EventLoop loop;
-    HttpServer server(&loop, InetAddress(8080), "http-server");
-    server.setHttpCallback(onRequest);
-    server.start();
-    loop.loop();
+int main(int argc, char *argv[]) {
+  // signal(SIGPIPE, SIG_IGN);
+  Logger::setLogLevel(Logger::LogLevel::WARN);
+  EventLoop loop;
+  HttpServer server(&loop, InetAddress(8080), "http-server");
+  server.setHttpCallback(onRequest);
+  server.start();
+  loop.loop();
 }
 
 char favicon[555] = {

@@ -32,6 +32,7 @@ public:
     {
         running_ = true;
         thread_.start();
+        thread_.setThreadPriority();
     }
 
     void stop()

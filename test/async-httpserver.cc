@@ -13,14 +13,14 @@ bool benchmark = true;
 
 void onRequest(const HttpRequest& req, HttpResponse* resp)
 {
-    std::cout << "Headers " << req.methodString() << " " << req.path() << std::endl;
-    
+    // std::cout << "Headers " << req.methodString() << " " << req.path() <<
+    // std::endl;
+    LOG_DEBUG << "Headers " << req.methodString() << " " << req.path();
+
     // 打印头部
-    if (!benchmark)
-    {
-        const std::unordered_map<std::string, std::string>& headers = req.headers();
-        for (const auto& header : headers)
-        {
+    if (!benchmark) {
+        const std::unordered_map<std::string, std::string> &headers = req.headers();
+        for (const auto &header : headers) {
             std::cout << header.first << ": " << header.second << std::endl;
         }
     }
@@ -82,7 +82,7 @@ void setLogging(const char* argv0)
 int main(int argc, char* argv[])
 {
     setLogging(argv[0]);
-    Logger::setLogLevel(Logger::LogLevel::WARN);
+    Logger::setLogLevel(Logger::LogLevel::DEBUG);
     EventLoop loop;
     HttpServer server(&loop, InetAddress(8080), "http-server");
     server.setHttpCallback(onRequest);

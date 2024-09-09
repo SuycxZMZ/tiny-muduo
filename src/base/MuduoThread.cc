@@ -1,8 +1,11 @@
+#include <bits/types/struct_sched_param.h>
+#include <pthread.h>
 #include <semaphore.h>
 #include <assert.h>
 
 #include "MuduoThread.h"
 #include "CurrentThread.h"
+#include "Logging.h"
 
 namespace tinymuduo
 {
@@ -65,4 +68,26 @@ void muduoThread::setDefaultName()
         m_name = std::string(buf);
     }
 }
+
+void muduoThread::setThreadPriority() {
+    if (!m_thread) {
+        LOG_ERROR << "Thread has not been created";
+        return;
+    }
+
+    // 获取原生handle句柄
+    pthread_t native_handle = m_thread->native_handle();
+
+    // // 设置调度策略为SCHED_BATCH（批处理策略）
+    int policy = SCHED_BATCH;
+    struct sched_param param = {}; // 使用默认的批处理优先级
+
+    // 使用pthread_setschedparam设置线程优先级
+    if (pthread_setschedparam(native_handle, policy, &param) != 0) {
+        LOG_ERROR << "Failed to set thread priority";
+    } else {
+        LOG_INFO << "Thread priority set to " << "SCHED_BATCH";
+    }
+}
+
 } // namespace tinymuduo

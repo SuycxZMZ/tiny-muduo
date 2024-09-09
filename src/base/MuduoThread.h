@@ -26,6 +26,8 @@ public:
     pid_t tid() const { return m_tid; }
     const std::string & name() const { return m_name; }
     static int numCreate() { return m_numCreate; }
+
+    void setThreadPriority();
 private:
     void setDefaultName();
     bool m_started;

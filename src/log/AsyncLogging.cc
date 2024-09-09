@@ -1,5 +1,6 @@
 #include "AsyncLogging.h"
 #include "LogFile.h"
+#include <memory>
 
 namespace tinymuduo
 {
@@ -38,7 +39,7 @@ void AsyncLogging::append(const char* logline, int len)
         } 
         else 
         { // 备用缓冲区也不够时，重新分配缓冲区，这种情况很少见
-            currentBuffer_.reset(new Buffer);
+          currentBuffer_.reset(new Buffer);
         }
         currentBuffer_->append(logline, len);
         cond_.notify_one(); // 唤醒写入磁盘得后端线程
