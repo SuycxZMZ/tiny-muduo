@@ -49,6 +49,12 @@
 
 [6. 日志模块说明](docs/basiclog.md)
 
+### **资料**
+
+- [sylar和muduo的一些总结](https://zakuv5r1g02.feishu.cn/wiki/NTbawzte0iyYnrkYfyMc8PmwnlP?from=from_copylink)，批判性的看就行，这是我秋招刚开始时写的，后面没有再改
+- 我画的一张比较简陋的图
+![muduoall](docs/photos/muduoall.png)
+
 ## 3. 压力测试 WebBench
 
     webbench -c 500 -t 30 http://127.0.0.1:8080/
